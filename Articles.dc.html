@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./ds/industry.css">
+<style>
+  body { margin: 0; }
+  a { color: var(--color-accent-700); text-decoration: none; }
+  a:hover { color: var(--color-accent-600); text-decoration: underline; }
+</style>
+</helmet>
+<div style="background:var(--color-bg); color:var(--color-text); font-family:var(--font-body); min-height:100%">
+  <nav class="nav" style="display:flex; align-items:center; gap:var(--space-6); padding:var(--space-4) var(--space-8); border-bottom:1px solid var(--color-divider)">
+    <a href="index.html" class="nav-brand" style="font-family:var(--font-heading); font-weight:600; font-size:20px; letter-spacing:0.04em; text-transform:uppercase; color:var(--color-text)">Your Name</a>
+    <div style="display:flex; gap:var(--space-6); margin-left:auto; font-size:15px">
+      <a href="index.html" style="color:var(--color-text)">Home</a>
+      <a href="Projects.dc.html" style="color:var(--color-text)">Projects</a>
+      <a href="Articles.dc.html" style="color:var(--color-accent-700)">Articles</a>
+      <a href="Videos.dc.html" style="color:var(--color-text)">Videos</a>
+    </div>
+    <div style="display:flex; gap:var(--space-2); font-size:13px; color:var(--color-neutral-600)">
+      <a href="#" style="color:var(--color-accent-700)">EN</a><span>·</span><a href="#" style="color:var(--color-neutral-600)">TR</a><span>·</span><a href="#" style="color:var(--color-neutral-600)">AR</a>
+    </div>
+    <button class="btn btn-secondary" style="white-space:nowrap">Download CV</button>
+  </nav>
+
+  <header style="max-width:1200px; margin:0 auto; padding:calc(var(--space-8) * 2) var(--space-8) var(--space-8)">
+    <span style="font-family:var(--font-heading); text-transform:uppercase; letter-spacing:0.14em; font-size:14px; color:var(--color-accent-700)">Writing</span>
+    <h1 style="margin:var(--space-2) 0 var(--space-3); font-size:52px; line-height:1.05; text-transform:uppercase">Articles</h1>
+    <p style="margin:0; max-width:60ch; font-size:16px; line-height:1.6; color:var(--color-neutral-700)">A short line describing what you write about. Replace this text.</p>
+  </header>
+
+  <section style="max-width:860px; margin:0 auto 0 0; padding:0 var(--space-8) calc(var(--space-8) * 2); margin-left:max(calc((100% - 1200px) / 2), 0px); display:flex; flex-direction:column">
+    <article style="display:grid; grid-template-columns:140px 1fr; gap:var(--space-6); padding:var(--space-6) 0; border-top:1px solid var(--color-divider)">
+      <span style="font-size:13px; color:var(--color-neutral-600); text-transform:uppercase; letter-spacing:0.08em">Date<br>Topic</span>
+      <div style="display:flex; flex-direction:column; gap:var(--space-2)">
+        <h2 style="margin:0; font-size:26px"><a href="Article.dc.html" style="color:var(--color-text)">Article title goes here</a></h2>
+        <p style="margin:0; font-size:15px; line-height:1.6; color:var(--color-neutral-700)">Two or three lines of excerpt from the article, giving the reader enough to decide whether to read on. Replace this text.</p>
+        <div style="display:flex; gap:var(--space-2)"><span class="tag tag-neutral">Tag</span><span class="tag tag-neutral">Tag</span><a href="Article.dc.html" style="margin-left:auto; font-size:14px">Read →</a></div>
+      </div>
+    </article>
+    <article style="display:grid; grid-template-columns:140px 1fr; gap:var(--space-6); padding:var(--space-6) 0; border-top:1px solid var(--color-divider)">
+      <span style="font-size:13px; color:var(--color-neutral-600); text-transform:uppercase; letter-spacing:0.08em">Date<br>Topic</span>
+      <div style="display:flex; flex-direction:column; gap:var(--space-2)">
+        <h2 style="margin:0; font-size:26px"><a href="Article.dc.html" style="color:var(--color-text)">Second article title</a></h2>
+        <p style="margin:0; font-size:15px; line-height:1.6; color:var(--color-neutral-700)">Two or three lines of excerpt from the article, giving the reader enough to decide whether to read on. Replace this text.</p>
+        <div style="display:flex; gap:var(--space-2)"><span class="tag tag-neutral">Tag</span><span class="tag tag-neutral">Tag</span><a href="Article.dc.html" style="margin-left:auto; font-size:14px">Read →</a></div>
+      </div>
+    </article>
+    <article style="display:grid; grid-template-columns:140px 1fr; gap:var(--space-6); padding:var(--space-6) 0; border-top:1px solid var(--color-divider)">
+      <span style="font-size:13px; color:var(--color-neutral-600); text-transform:uppercase; letter-spacing:0.08em">Date<br>Topic</span>
+      <div style="display:flex; flex-direction:column; gap:var(--space-2)">
+        <h2 style="margin:0; font-size:26px"><a href="Article.dc.html" style="color:var(--color-text)">Third article title</a></h2>
+        <p style="margin:0; font-size:15px; line-height:1.6; color:var(--color-neutral-700)">Two or three lines of excerpt from the article, giving the reader enough to decide whether to read on. Replace this text.</p>
+        <div style="display:flex; gap:var(--space-2)"><span class="tag tag-neutral">Tag</span><span class="tag tag-neutral">Tag</span><a href="Article.dc.html" style="margin-left:auto; font-size:14px">Read →</a></div>
+      </div>
+    </article>
+    <article style="display:grid; grid-template-columns:140px 1fr; gap:var(--space-6); padding:var(--space-6) 0; border-top:1px solid var(--color-divider); border-bottom:1px solid var(--color-divider)">
+      <span style="font-size:13px; color:var(--color-neutral-600); text-transform:uppercase; letter-spacing:0.08em">Date<br>Topic</span>
+      <div style="display:flex; flex-direction:column; gap:var(--space-2)">
+        <h2 style="margin:0; font-size:26px"><a href="Article.dc.html" style="color:var(--color-text)">Fourth article title</a></h2>
+        <p style="margin:0; font-size:15px; line-height:1.6; color:var(--color-neutral-700)">Two or three lines of excerpt from the article, giving the reader enough to decide whether to read on. Replace this text.</p>
+        <div style="display:flex; gap:var(--space-2)"><span class="tag tag-neutral">Tag</span><span class="tag tag-neutral">Tag</span><a href="Article.dc.html" style="margin-left:auto; font-size:14px">Read →</a></div>
+      </div>
+    </article>
+  </section>
+
+  <footer style="border-top:1px solid var(--color-divider); padding:var(--space-6) var(--space-8); display:flex; max-width:1200px; margin:0 auto; font-size:13px; color:var(--color-neutral-600)">
+    <span>© 2026 Your Name</span>
+    <span style="margin-left:auto">EN · TR · AR</span>
+  </footer>
+</div>
+</x-dc>
+</body>
+</html>

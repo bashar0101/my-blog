@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./ds/industry.css">
+<script src="./image-slot.js"></script>
+<style>
+  body { margin: 0; }
+  a { color: var(--color-accent-700); text-decoration: none; }
+  a:hover { color: var(--color-accent-600); text-decoration: underline; }
+</style>
+</helmet>
+<div style="background:var(--color-bg); color:var(--color-text); font-family:var(--font-body); min-height:100%">
+  <nav class="nav" style="display:flex; align-items:center; gap:var(--space-6); padding:var(--space-4) var(--space-8); border-bottom:1px solid var(--color-divider)">
+    <a href="index.html" class="nav-brand" style="font-family:var(--font-heading); font-weight:600; font-size:20px; letter-spacing:0.04em; text-transform:uppercase; color:var(--color-text)">Your Name</a>
+    <div style="display:flex; gap:var(--space-6); margin-left:auto; font-size:15px">
+      <a href="index.html" style="color:var(--color-text)">Home</a>
+      <a href="Projects.dc.html" style="color:var(--color-text)">Projects</a>
+      <a href="Articles.dc.html" style="color:var(--color-text)">Articles</a>
+      <a href="Videos.dc.html" style="color:var(--color-accent-700)">Videos</a>
+    </div>
+    <div style="display:flex; gap:var(--space-2); font-size:13px; color:var(--color-neutral-600)">
+      <a href="#" style="color:var(--color-accent-700)">EN</a><span>·</span><a href="#" style="color:var(--color-neutral-600)">TR</a><span>·</span><a href="#" style="color:var(--color-neutral-600)">AR</a>
+    </div>
+    <button class="btn btn-secondary" style="white-space:nowrap">Download CV</button>
+  </nav>
+
+  <header style="max-width:1200px; margin:0 auto; padding:calc(var(--space-8) * 2) var(--space-8) var(--space-8)">
+    <span style="font-family:var(--font-heading); text-transform:uppercase; letter-spacing:0.14em; font-size:14px; color:var(--color-accent-700)">Watch</span>
+    <h1 style="margin:var(--space-2) 0 var(--space-3); font-size:52px; line-height:1.05; text-transform:uppercase">Videos</h1>
+    <p style="margin:0; max-width:60ch; font-size:16px; line-height:1.6; color:var(--color-neutral-700)">A short line describing your videos or channel. Replace this text — and swap each placeholder below for a YouTube embed.</p>
+  </header>
+
+  <section style="max-width:1200px; margin:0 auto; padding:0 var(--space-8) calc(var(--space-8) * 2); display:grid; grid-template-columns:1fr 1fr; gap:var(--space-8)">
+    <figure class="blueprint" style="margin:0; padding:var(--space-3)">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <div class="duotone" style="width:100%; aspect-ratio:16/9"><image-slot id="vid-1" shape="rect" placeholder="YouTube embed goes here" style="width:100%; height:100%"></image-slot></div>
+      <figcaption style="padding:var(--space-3) 0 0; display:flex; flex-direction:column; gap:var(--space-1)">
+        <span style="font-size:13px; color:var(--color-neutral-600); text-transform:uppercase; letter-spacing:0.08em">Date · Duration</span>
+        <span style="font-family:var(--font-heading); font-weight:600; font-size:22px">Video title goes here</span>
+        <span style="font-size:15px; color:var(--color-neutral-700)">One line describing what the video covers.</span>
+      </figcaption>
+    </figure>
+    <figure class="blueprint" style="margin:0; padding:var(--space-3)">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <div class="duotone" style="width:100%; aspect-ratio:16/9"><image-slot id="vid-2" shape="rect" placeholder="YouTube embed goes here" style="width:100%; height:100%"></image-slot></div>
+      <figcaption style="padding:var(--space-3) 0 0; display:flex; flex-direction:column; gap:var(--space-1)">
+        <span style="font-size:13px; color:var(--color-neutral-600); text-transform:uppercase; letter-spacing:0.08em">Date · Duration</span>
+        <span style="font-family:var(--font-heading); font-weight:600; font-size:22px">Second video title</span>
+        <span style="font-size:15px; color:var(--color-neutral-700)">One line describing what the video covers.</span>
+      </figcaption>
+    </figure>
+    <figure class="blueprint" style="margin:0; padding:var(--space-3)">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <div class="duotone" style="width:100%; aspect-ratio:16/9"><image-slot id="vid-3" shape="rect" placeholder="YouTube embed goes here" style="width:100%; height:100%"></image-slot></div>
+      <figcaption style="padding:var(--space-3) 0 0; display:flex; flex-direction:column; gap:var(--space-1)">
+        <span style="font-size:13px; color:var(--color-neutral-600); text-transform:uppercase; letter-spacing:0.08em">Date · Duration</span>
+        <span style="font-family:var(--font-heading); font-weight:600; font-size:22px">Third video title</span>
+        <span style="font-size:15px; color:var(--color-neutral-700)">One line describing what the video covers.</span>
+      </figcaption>
+    </figure>
+    <figure class="blueprint" style="margin:0; padding:var(--space-3)">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <div class="duotone" style="width:100%; aspect-ratio:16/9"><image-slot id="vid-4" shape="rect" placeholder="YouTube embed goes here" style="width:100%; height:100%"></image-slot></div>
+      <figcaption style="padding:var(--space-3) 0 0; display:flex; flex-direction:column; gap:var(--space-1)">
+        <span style="font-size:13px; color:var(--color-neutral-600); text-transform:uppercase; letter-spacing:0.08em">Date · Duration</span>
+        <span style="font-family:var(--font-heading); font-weight:600; font-size:22px">Fourth video title</span>
+        <span style="font-size:15px; color:var(--color-neutral-700)">One line describing what the video covers.</span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <footer style="border-top:1px solid var(--color-divider); padding:var(--space-6) var(--space-8); display:flex; max-width:1200px; margin:0 auto; font-size:13px; color:var(--color-neutral-600)">
+    <span>© 2026 Your Name</span>
+    <span style="margin-left:auto">EN · TR · AR</span>
+  </footer>
+</div>
+</x-dc>
+</body>
+</html>

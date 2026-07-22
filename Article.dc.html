@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./ds/industry.css">
+<script src="./image-slot.js"></script>
+<style>
+  body { margin: 0; }
+  a { color: var(--color-accent-700); text-decoration: none; }
+  a:hover { color: var(--color-accent-600); text-decoration: underline; }
+</style>
+</helmet>
+<div style="background:var(--color-bg); color:var(--color-text); font-family:var(--font-body); min-height:100%">
+  <nav class="nav" style="display:flex; align-items:center; gap:var(--space-6); padding:var(--space-4) var(--space-8); border-bottom:1px solid var(--color-divider)">
+    <a href="index.html" class="nav-brand" style="font-family:var(--font-heading); font-weight:600; font-size:20px; letter-spacing:0.04em; text-transform:uppercase; color:var(--color-text)">Your Name</a>
+    <div style="display:flex; gap:var(--space-6); margin-left:auto; font-size:15px">
+      <a href="index.html" style="color:var(--color-text)">Home</a>
+      <a href="Projects.dc.html" style="color:var(--color-text)">Projects</a>
+      <a href="Articles.dc.html" style="color:var(--color-accent-700)">Articles</a>
+      <a href="Videos.dc.html" style="color:var(--color-text)">Videos</a>
+    </div>
+    <div style="display:flex; gap:var(--space-2); font-size:13px; color:var(--color-neutral-600)">
+      <a href="#" style="color:var(--color-accent-700)">EN</a><span>·</span><a href="#" style="color:var(--color-neutral-600)">TR</a><span>·</span><a href="#" style="color:var(--color-neutral-600)">AR</a>
+    </div>
+    <button class="btn btn-secondary" style="white-space:nowrap">Download CV</button>
+  </nav>
+
+  <article style="max-width:760px; margin:0 auto; padding:calc(var(--space-8) * 2) var(--space-8)">
+    <a href="Articles.dc.html" style="font-size:14px">← All articles</a>
+    <header style="margin:var(--space-6) 0 var(--space-8); display:flex; flex-direction:column; gap:var(--space-3)">
+      <span style="font-family:var(--font-heading); text-transform:uppercase; letter-spacing:0.14em; font-size:14px; color:var(--color-accent-700)">Topic · Date · X min read</span>
+      <h1 style="margin:0; font-size:44px; line-height:1.1; text-transform:uppercase">Article title goes here</h1>
+      <p style="margin:0; font-size:18px; line-height:1.6; color:var(--color-neutral-700)">A one-sentence standfirst summarising the article. Replace this text.</p>
+    </header>
+    <figure class="blueprint" style="margin:0 0 var(--space-8); padding:var(--space-3)">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <div class="duotone" style="width:100%; height:320px"><image-slot id="art-hero" shape="rect" placeholder="Article cover image (optional)" style="width:100%; height:100%"></image-slot></div>
+    </figure>
+    <div style="display:flex; flex-direction:column; gap:var(--space-6); font-size:17px; line-height:1.75; color:var(--color-neutral-800)">
+      <p style="margin:0">Opening paragraph of your article goes here. Write your introduction, set up the problem, and tell the reader what they'll learn. Replace this text with your own writing.</p>
+      <h2 style="margin:0; font-size:28px; text-transform:uppercase; letter-spacing:0.04em">First section heading</h2>
+      <p style="margin:0">Body paragraph. Explain your first point here — the context, the approach, the trade-offs. Replace this text.</p>
+      <pre style="margin:0; padding:var(--space-4); background:var(--color-neutral-200); border:1px solid var(--color-divider); font-size:14px; line-height:1.6; overflow:auto"><code>// Code sample goes here
+public class Example {
+    // ...
+}</code></pre>
+      <p style="margin:0">A paragraph following the code sample, walking the reader through what it does. Replace this text.</p>
+      <h2 style="margin:0; font-size:28px; text-transform:uppercase; letter-spacing:0.04em">Second section heading</h2>
+      <p style="margin:0">Another body paragraph. Replace this text with the next part of your article.</p>
+      <p style="margin:0">Closing paragraph — summarise the takeaway and point the reader at what to try next. Replace this text.</p>
+    </div>
+    <footer style="margin-top:calc(var(--space-8) * 1.5); padding-top:var(--space-6); border-top:1px solid var(--color-divider); display:flex; gap:var(--space-2); align-items:center">
+      <span class="tag tag-neutral">Tag</span><span class="tag tag-neutral">Tag</span>
+      <a href="Articles.dc.html" style="margin-left:auto; font-size:14px">More articles →</a>
+    </footer>
+  </article>
+
+  <footer style="border-top:1px solid var(--color-divider); padding:var(--space-6) var(--space-8); display:flex; max-width:1200px; margin:0 auto; font-size:13px; color:var(--color-neutral-600)">
+    <span>© 2026 Your Name</span>
+    <span style="margin-left:auto">EN · TR · AR</span>
+  </footer>
+</div>
+</x-dc>
+</body>
+</html>

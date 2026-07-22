@@ -1,0 +1,14 @@
+# Added by code-review-graph
+.code-review-graph/
+
+# Editor / tooling
+.vscode/
+.claude/
+
+# Design-tool internal artifacts (not used by the site)
+.thumbnail
+_ds/
+
+.claude
+._ds
+CLAUDE.md
