@@ -35,5 +35,7 @@
   "videos.title": { "en": "Videos", "tr": "Videolar", "ar": "الفيديوهات" },
   "article.back": { "en": "← All articles", "tr": "← Tüm makaleler", "ar": "→ كل المقالات" },
   "article.moreArticles": { "en": "More articles →", "tr": "Diğer makaleler →", "ar": "المزيد من المقالات ←" },
-  "article.englishOnly": { "en": "This article is available in English only.", "tr": "Bu makale yalnızca İngilizce olarak mevcuttur.", "ar": "هذه المقالة متوفرة باللغة الإنجليزية فقط." }
+  "article.englishOnly": { "en": "This article is available in English only.", "tr": "Bu makale yalnızca İngilizce olarak mevcuttur.", "ar": "هذه المقالة متوفرة باللغة الإنجليزية فقط." },
+  "notFound.body": { "en": "This page does not exist.", "tr": "Bu sayfa mevcut değil.", "ar": "هذه الصفحة غير موجودة." },
+  "article.minutesShort": { "en": "min", "tr": "dk", "ar": "دقيقة" }
 }

@@ -7,6 +7,7 @@ import Projects from "./routes/Projects";
 import Articles from "./routes/Articles";
 import Article from "./routes/Article";
 import Videos from "./routes/Videos";
+import { LangProvider } from "./i18n/LangProvider";
 
 export default function App() {
   return (
@@ -20,7 +21,14 @@ export default function App() {
         <Route path="videos" element={<Videos />} />
         <Route path="*" element={<NotFound />} />
       </Route>
-      <Route path="*" element={<NotFound />} />
+      <Route
+        path="*"
+        element={
+          <LangProvider lang="en">
+            <NotFound />
+          </LangProvider>
+        }
+      />
     </Routes>
   );
 }

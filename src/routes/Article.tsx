@@ -40,7 +40,7 @@ export default function Article() {
               color: "var(--color-accent-700)",
             }}
           >
-            {l(article.topic)} · {article.date} · {article.readingMinutes} min
+            {l(article.topic)} · {article.date} · {article.readingMinutes} {t("article.minutesShort")}
           </span>
           <h1 style={{ margin: 0, fontSize: 44, lineHeight: 1.1, textTransform: "uppercase" }}>
             {l(article.title)}

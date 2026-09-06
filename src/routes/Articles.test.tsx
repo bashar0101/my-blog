@@ -22,4 +22,10 @@ describe("Articles", () => {
     renderAt("/ar/articles");
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("المقالات");
   });
+
+  it("renders the structural class hooks that rtl.css targets", () => {
+    const { container } = renderAt("/en/articles");
+    expect(container.querySelector(".page-kicker")).not.toBeNull();
+    expect(container.querySelector(".row-meta")).not.toBeNull();
+  });
 });

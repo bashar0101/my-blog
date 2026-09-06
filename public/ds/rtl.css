@@ -50,6 +50,18 @@
   margin-inline-end: auto;
 }
 
+/* Restores the base link styling that lived in an inline <style> block on every
+   original page (see archive/dc-original/index.html) and was lost when those
+   pages were archived. industry.css is frozen, so it lives here. */
+a {
+  color: var(--color-accent-700);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--color-accent-600);
+  text-decoration: underline;
+}
+
 /* Arabic overrides.
    industry.css sets --font-heading to "Barlow Condensed", which has no Arabic
    coverage, plus letter-spacing and uppercase transforms on every heading.

@@ -24,12 +24,12 @@ describe("logical properties", () => {
 describe("rtl.css", () => {
   const css = readFileSync("public/ds/rtl.css", "utf8");
 
-  it("resets letter-spacing for Arabic", () => {
-    expect(css).toMatch(/:root\[lang="ar"\][^}]*letter-spacing:\s*normal/s);
+  it("resets letter-spacing for Arabic with !important so it beats inline styles", () => {
+    expect(css).toMatch(/:root\[lang="ar"\][^}]*letter-spacing:\s*normal\s*!important/s);
   });
 
-  it("drops uppercase transforms for Arabic", () => {
-    expect(css).toMatch(/:root\[lang="ar"\][^}]*text-transform:\s*none/s);
+  it("drops uppercase transforms for Arabic with !important so it beats inline styles", () => {
+    expect(css).toMatch(/:root\[lang="ar"\][^}]*text-transform:\s*none\s*!important/s);
   });
 
   it("swaps in an Arabic heading font", () => {

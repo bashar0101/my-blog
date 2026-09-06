@@ -51,4 +51,10 @@ describe("Home", () => {
     renderAt("/en");
     expect(screen.getByLabelText("Message")).toBeInTheDocument();
   });
+
+  it("renders the structural class hooks that rtl.css targets", () => {
+    const { container } = renderAt("/en");
+    expect(container.querySelector(".page-kicker")).not.toBeNull();
+    expect(container.querySelectorAll(".skills-label").length).toBeGreaterThan(0);
+  });
 });

@@ -7,7 +7,12 @@ import NotFound from "./NotFound";
 
 export default function LangLayout() {
   const { lang } = useParams();
-  if (!isLang(lang)) return <NotFound />;
+  if (!isLang(lang))
+    return (
+      <LangProvider lang="en">
+        <NotFound />
+      </LangProvider>
+    );
 
   return (
     <LangProvider lang={lang}>
