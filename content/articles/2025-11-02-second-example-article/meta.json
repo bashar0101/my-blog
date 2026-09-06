@@ -1,0 +1,15 @@
+{
+  "slug": "2025-11-02-second-example-article",
+  "date": "2025-11-02",
+  "topic": { "en": "Frontend" },
+  "title": { "en": "Second example article" },
+  "standfirst": { "en": "A short placeholder standfirst for the second seed article." },
+  "readingMinutes": 4,
+  "tags": [
+    { "label": "Tag", "tone": "neutral" },
+    { "label": "Tag", "tone": "neutral" }
+  ],
+  "cover": { "src": "/img/article-cover.jpg", "alt": { "en": "Article cover image" } },
+  "featured": false,
+  "published": true
+}

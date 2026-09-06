@@ -1,0 +1,15 @@
+{
+  "slug": "2025-05-11-fourth-example-article",
+  "date": "2025-05-11",
+  "topic": { "en": "Tooling" },
+  "title": { "en": "Fourth example article" },
+  "standfirst": { "en": "A short placeholder standfirst for the fourth seed article." },
+  "readingMinutes": 3,
+  "tags": [
+    { "label": "Tag", "tone": "neutral" },
+    { "label": "Tag", "tone": "neutral" }
+  ],
+  "cover": { "src": "/img/article-cover.jpg", "alt": { "en": "Article cover image" } },
+  "featured": false,
+  "published": true
+}

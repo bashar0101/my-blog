@@ -7,12 +7,20 @@ describe("allArticles", () => {
   });
 
   it("returns only published articles", () => {
-    expect(allArticles().every((a) => a.published)).toBe(true);
+    const articles = allArticles();
+    expect(articles.every((a) => a.published)).toBe(true);
+    expect(articles.some((a) => a.slug === "2025-03-01-unpublished-draft")).toBe(false);
+    expect(articles.length).toBe(4);
   });
 
   it("sorts newest first", () => {
-    const dates = allArticles().map((a) => a.date);
+    const articles = allArticles();
+    const dates = articles.map((a) => a.date);
     expect(dates).toEqual([...dates].sort().reverse());
+    expect(articles[0]!.slug).toBe("2026-01-15-example-article");
+    for (let i = 1; i < dates.length; i++) {
+      expect(dates[i]! < dates[i - 1]!).toBe(true);
+    }
   });
 
   it("gives every article an English body", () => {
@@ -56,6 +64,7 @@ describe("bodyFor", () => {
 
 describe("latestArticles", () => {
   it("caps the result at three by default", () => {
-    expect(latestArticles().length).toBeLessThanOrEqual(3);
+    expect(latestArticles().length).toBe(3);
+    expect(latestArticles(2).length).toBe(2);
   });
 });

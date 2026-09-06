@@ -27,6 +27,11 @@ describe("renderMarkdown", () => {
     expect(html).not.toContain("onerror");
   });
 
+  it("strips javascript: URIs from links", () => {
+    const html = renderMarkdown("[click](javascript:alert(1))");
+    expect(html).not.toContain("javascript:");
+  });
+
   it("returns an empty string for empty input", () => {
     expect(renderMarkdown("")).toBe("");
   });
