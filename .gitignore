@@ -12,3 +12,8 @@ _ds/
 .claude
 ._ds
 CLAUDE.md
+# Build output and tooling artifacts
+node_modules/
+dist/
+graphify-out/
+tsconfig.tsbuildinfo
