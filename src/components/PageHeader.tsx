@@ -11,6 +11,7 @@ export default function PageHeader({ kicker, title }: { kicker: string; title: s
       }}
     >
       <span
+        className="page-kicker"
         style={{
           fontFamily: "var(--font-heading)",
           textTransform: "uppercase",

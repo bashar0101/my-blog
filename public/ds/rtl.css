@@ -60,11 +60,21 @@
   --font-body: "IBM Plex Sans Arabic", "Noto Sans Arabic", "Segoe UI", system-ui, sans-serif;
 }
 
+/* SectionHeading, PageHeader, ArticleRow, and Nav set letterSpacing/
+   textTransform inline (React style props), and an inline style always
+   outranks a normal-importance stylesheet rule regardless of selector
+   specificity. !important is the one way a stylesheet can still override an
+   inline style it cannot remove, so it is used here deliberately and only
+   here, scoped entirely inside :root[lang="ar"] — English and Turkish never
+   see it. Do not "clean this up" by dropping !important; doing so silently
+   makes the rule inert again on every heading that has an inline style. */
 :root[lang="ar"] h1,
 :root[lang="ar"] h2,
 :root[lang="ar"] h3,
 :root[lang="ar"] .nav-brand,
-:root[lang="ar"] .card-kicker {
-  letter-spacing: normal;
-  text-transform: none;
+:root[lang="ar"] .card-kicker,
+:root[lang="ar"] .page-kicker,
+:root[lang="ar"] .row-meta {
+  letter-spacing: normal !important;
+  text-transform: none !important;
 }

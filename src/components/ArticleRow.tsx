@@ -11,6 +11,7 @@ export default function ArticleRow({ article }: { article: Article }) {
       style={{ display: "flex", flexDirection: "column", gap: "var(--space-1)" }}
     >
       <span
+        className="row-meta"
         style={{
           fontSize: 13,
           color: "var(--color-neutral-600)",
