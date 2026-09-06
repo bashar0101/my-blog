@@ -39,3 +39,32 @@
   line-height: 1.6;
   overflow: auto;
 }
+
+/* nav-brand uses a physical margin-right: auto in industry.css to pin itself
+   to the trailing edge. That's correct in LTR but pins to the wrong edge in
+   RTL, so it's corrected here with a logical property. Not scoped to
+   :root[lang="ar"]: margin-inline-end resolves to the right edge in LTR and
+   the left edge in RTL, so English and Turkish are unaffected. */
+.nav-brand {
+  margin-right: 0;
+  margin-inline-end: auto;
+}
+
+/* Arabic overrides.
+   industry.css sets --font-heading to "Barlow Condensed", which has no Arabic
+   coverage, plus letter-spacing and uppercase transforms on every heading.
+   letter-spacing breaks the joins between Arabic letters and uppercase is
+   meaningless in the script, so both are reset here rather than in industry.css. */
+:root[lang="ar"] {
+  --font-heading: "IBM Plex Sans Arabic", "Noto Kufi Arabic", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans Arabic", "Noto Sans Arabic", "Segoe UI", system-ui, sans-serif;
+}
+
+:root[lang="ar"] h1,
+:root[lang="ar"] h2,
+:root[lang="ar"] h3,
+:root[lang="ar"] .nav-brand,
+:root[lang="ar"] .card-kicker {
+  letter-spacing: normal;
+  text-transform: none;
+}
