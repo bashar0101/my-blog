@@ -1,1 +1,24 @@
 /* Arabic / RTL overrides — filled in Task 12 */
+
+.lang-switcher {
+  display: flex;
+  gap: var(--space-2);
+  font-size: 13px;
+  align-items: center;
+}
+.lang-switcher a {
+  color: var(--color-neutral-600);
+}
+.lang-switcher a[aria-current="true"] {
+  color: var(--color-accent-700);
+}
+.site-footer .lang-switcher a {
+  color: inherit;
+}
+.site-footer .lang-switcher a[aria-current="true"] {
+  color: var(--color-accent-700);
+}
+
+.nav a.active {
+  color: var(--color-accent-700);
+}
