@@ -20,6 +20,7 @@ describe("Home", () => {
   it("renders the about text", () => {
     renderAt("/en");
     expect(screen.getByRole("heading", { name: "About" })).toBeInTheDocument();
+    expect(screen.getByText(/A short paragraph about your background/)).toBeInTheDocument();
   });
 
   it("renders at most three featured projects", () => {

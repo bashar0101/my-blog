@@ -1,5 +1,12 @@
 import { Link } from "react-router-dom";
 
+const headingStyle = {
+  margin: 0,
+  fontSize: 28,
+  textTransform: "uppercase",
+  letterSpacing: "0.06em",
+} as const;
+
 export default function SectionHeading({
   title,
   linkTo,
@@ -9,6 +16,10 @@ export default function SectionHeading({
   linkTo?: string;
   linkLabel?: string;
 }) {
+  const heading = <h2 style={headingStyle}>{title}</h2>;
+
+  if (!linkTo || !linkLabel) return heading;
+
   return (
     <div
       style={{
@@ -18,21 +29,10 @@ export default function SectionHeading({
         marginBottom: "var(--space-6)",
       }}
     >
-      <h2
-        style={{
-          margin: 0,
-          fontSize: 28,
-          textTransform: "uppercase",
-          letterSpacing: "0.06em",
-        }}
-      >
-        {title}
-      </h2>
-      {linkTo && linkLabel && (
-        <Link to={linkTo} style={{ marginInlineStart: "auto", fontSize: 14 }}>
-          {linkLabel}
-        </Link>
-      )}
+      {heading}
+      <Link to={linkTo} style={{ marginInlineStart: "auto", fontSize: 14 }}>
+        {linkLabel}
+      </Link>
     </div>
   );
 }

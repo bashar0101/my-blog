@@ -77,9 +77,7 @@ export default function Home() {
       </header>
 
       <section style={{ ...section, display: "grid", gridTemplateColumns: "220px 1fr", gap: "var(--space-8)" }}>
-        <h2 style={{ margin: 0, fontSize: 28, textTransform: "uppercase", letterSpacing: "0.06em" }}>
-          {t("about.heading")}
-        </h2>
+        <SectionHeading title={t("about.heading")} />
         <p
           style={{
             margin: 0,
@@ -141,9 +139,7 @@ export default function Home() {
       </section>
 
       <section style={{ ...section, display: "grid", gridTemplateColumns: "220px 1fr", gap: "var(--space-8)" }}>
-        <h2 style={{ margin: 0, fontSize: 28, textTransform: "uppercase", letterSpacing: "0.06em" }}>
-          {t("skills.heading")}
-        </h2>
+        <SectionHeading title={t("skills.heading")} />
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
           {profile.skills.map((group) => (
             <div
@@ -177,9 +173,7 @@ export default function Home() {
         }}
       >
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
-          <h2 style={{ margin: 0, fontSize: 28, textTransform: "uppercase", letterSpacing: "0.06em" }}>
-            {t("contact.heading")}
-          </h2>
+          <SectionHeading title={t("contact.heading")} />
           <a href={`mailto:${profile.email}`} style={{ fontSize: 17 }}>
             {profile.email}
           </a>
