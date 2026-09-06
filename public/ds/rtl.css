@@ -62,6 +62,19 @@ a:hover {
   text-decoration: underline;
 }
 
+/* The original site rendered these as <button>, which no `a` rule can reach.
+   The React port renders several as <a>/<Link>, so the global a:hover above
+   would otherwise repaint them — and for .btn-primary it would paint the text
+   the same token as its own hover background, making the label invisible. */
+.btn:hover,
+.btn:active {
+  color: var(--color-text);
+}
+.btn-primary:hover,
+.btn-primary:active {
+  color: var(--color-bg);
+}
+
 /* Arabic overrides.
    industry.css sets --font-heading to "Barlow Condensed", which has no Arabic
    coverage, plus letter-spacing and uppercase transforms on every heading.
