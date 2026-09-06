@@ -31,6 +31,7 @@ export default function Article() {
           }}
         >
           <span
+            className="page-kicker"
             style={{
               fontFamily: "var(--font-heading)",
               textTransform: "uppercase",

@@ -36,6 +36,7 @@ export default function Home() {
       >
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
           <span
+            className="page-kicker"
             style={{
               fontFamily: "var(--font-heading)",
               textTransform: "uppercase",
@@ -147,6 +148,7 @@ export default function Home() {
               style={{ display: "flex", gap: "var(--space-2)", flexWrap: "wrap", alignItems: "center" }}
             >
               <span
+                className="skills-label"
                 style={{
                   fontSize: 13,
                   textTransform: "uppercase",
