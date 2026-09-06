@@ -17,3 +17,7 @@ node_modules/
 dist/
 graphify-out/
 tsconfig.tsbuildinfo
+
+# Local environment variables (never commit real endpoint values)
+.env
+.env.local
