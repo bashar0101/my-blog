@@ -60,7 +60,7 @@ export default function Article() {
               fontSize: 14,
             }}
           >
-            This article is available in English only.
+            {t("article.englishOnly")}
           </p>
         )}
 

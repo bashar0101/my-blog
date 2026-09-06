@@ -34,5 +34,6 @@
   "videos.kicker": { "en": "Watch", "tr": "İzle", "ar": "شاهد" },
   "videos.title": { "en": "Videos", "tr": "Videolar", "ar": "الفيديوهات" },
   "article.back": { "en": "← All articles", "tr": "← Tüm makaleler", "ar": "→ كل المقالات" },
-  "article.moreArticles": { "en": "More articles →", "tr": "Diğer makaleler →", "ar": "المزيد من المقالات ←" }
+  "article.moreArticles": { "en": "More articles →", "tr": "Diğer makaleler →", "ar": "المزيد من المقالات ←" },
+  "article.englishOnly": { "en": "This article is available in English only.", "tr": "Bu makale yalnızca İngilizce olarak mevcuttur.", "ar": "هذه المقالة متوفرة باللغة الإنجليزية فقط." }
 }

@@ -30,7 +30,7 @@ describe("ui", () => {
     const keys = Object.keys(ui);
     expect(keys).toContain("nav.home");
     expect(keys).toContain("contact.send");
-    expect(keys.length).toBe(36);
+    expect(keys.length).toBe(37);
     for (const key of keys) {
       for (const lang of LANGS) {
         expect(ui[key]?.[lang], `${key}.${lang}`).toBeTruthy();
