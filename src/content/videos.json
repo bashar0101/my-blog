@@ -14,5 +14,13 @@
     "description": { "en": "A one-line description of the video. Replace this text." },
     "featured": true,
     "order": 2
+  },
+  {
+    "id": "video-three",
+    "title": { "en": "Third video title" },
+    "youtubeId": "jNQXAC9IVRw",
+    "description": { "en": "A one-line description of the video. Replace this text." },
+    "featured": true,
+    "order": 0
   }
 ]

@@ -45,6 +45,10 @@ describe("allProjects", () => {
     expect(orders).toEqual([...orders].sort((a, b) => a - b));
   });
 
+  it("puts the lowest-order project first", () => {
+    expect(allProjects()[0]!.order).toBe(0);
+  });
+
   it("gives every project a unique id", () => {
     const ids = allProjects().map((p) => p.id);
     expect(new Set(ids).size).toBe(ids.length);
@@ -57,7 +61,7 @@ describe("featuredProjects", () => {
   });
 
   it("caps the result at three by default", () => {
-    expect(featuredProjects().length).toBeLessThanOrEqual(3);
+    expect(featuredProjects().length).toBe(3);
   });
 
   it("respects an explicit limit", () => {
@@ -71,6 +75,10 @@ describe("videos", () => {
     expect(orders).toEqual([...orders].sort((a, b) => a - b));
   });
 
+  it("puts the lowest-order video first", () => {
+    expect(allVideos()[0]!.order).toBe(0);
+  });
+
   it("carries a bare youtube id, not a URL", () => {
     for (const video of allVideos()) {
       expect(video.youtubeId).not.toContain("/");
@@ -79,7 +87,7 @@ describe("videos", () => {
   });
 
   it("caps featured videos at two by default", () => {
-    expect(featuredVideos().length).toBeLessThanOrEqual(2);
+    expect(featuredVideos().length).toBe(2);
     expect(featuredVideos().every((v) => v.featured)).toBe(true);
   });
 });

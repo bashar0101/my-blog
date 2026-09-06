@@ -40,5 +40,19 @@
     "url": null,
     "featured": true,
     "order": 3
+  },
+  {
+    "id": "project-four",
+    "title": { "en": "Project title four" },
+    "kicker": { "en": "Data pipeline" },
+    "summary": { "en": "One or two lines describing the project, the problem it solves, and your role in it." },
+    "tags": [
+      { "label": "Python", "tone": "accent" },
+      { "label": "Airflow", "tone": "neutral" }
+    ],
+    "image": { "src": "/img/project-four.jpg", "alt": { "en": "Project screenshot" } },
+    "url": null,
+    "featured": true,
+    "order": 0
   }
 ]
