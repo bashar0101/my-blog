@@ -24,7 +24,7 @@ export default function ContactForm() {
     const endpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT;
     if (!endpoint) {
       setStatus("error");
-      setError("The contact form is not configured yet. Email me directly instead.");
+      setError(t("contact.notConfigured"));
       return;
     }
 
@@ -42,8 +42,9 @@ export default function ContactForm() {
       setEmail("");
       setMessage("");
     } catch (cause) {
+      console.error("Contact form submission failed:", cause);
       setStatus("error");
-      setError(cause instanceof Error ? cause.message : "Something went wrong.");
+      setError(t("contact.failed"));
     }
   }
 
@@ -102,7 +103,7 @@ export default function ContactForm() {
         </button>
       </Blueprint>
 
-      {status === "sent" && <p role="status">Thanks — your message is on its way.</p>}
+      {status === "sent" && <p role="status">{t("contact.sent")}</p>}
       {status === "error" && (
         <p role="alert" style={{ color: "var(--color-accent-700)" }}>
           {error}
