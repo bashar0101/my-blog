@@ -1,0 +1,18 @@
+[
+  {
+    "id": "video-one",
+    "title": { "en": "Video title goes here" },
+    "youtubeId": "dQw4w9WgXcQ",
+    "description": { "en": "A one-line description of the video. Replace this text." },
+    "featured": true,
+    "order": 1
+  },
+  {
+    "id": "video-two",
+    "title": { "en": "Second video title" },
+    "youtubeId": "dQw4w9WgXcQ",
+    "description": { "en": "A one-line description of the video. Replace this text." },
+    "featured": true,
+    "order": 2
+  }
+]

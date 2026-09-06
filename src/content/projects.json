@@ -1,0 +1,44 @@
+[
+  {
+    "id": "project-one",
+    "title": { "en": "Project title one" },
+    "kicker": { "en": "Backend · API" },
+    "summary": { "en": "One or two lines describing the project, the problem it solves, and your role in it." },
+    "tags": [
+      { "label": "Spring Boot", "tone": "accent" },
+      { "label": "PostgreSQL", "tone": "neutral" }
+    ],
+    "image": { "src": "/img/project-one.jpg", "alt": { "en": "Project screenshot" } },
+    "url": null,
+    "featured": true,
+    "order": 1
+  },
+  {
+    "id": "project-two",
+    "title": { "en": "Project title two" },
+    "kicker": { "en": "Full stack" },
+    "summary": { "en": "One or two lines describing the project, the problem it solves, and your role in it." },
+    "tags": [
+      { "label": "Java", "tone": "accent" },
+      { "label": "React", "tone": "neutral" }
+    ],
+    "image": { "src": "/img/project-two.jpg", "alt": { "en": "Project screenshot" } },
+    "url": null,
+    "featured": true,
+    "order": 2
+  },
+  {
+    "id": "project-three",
+    "title": { "en": "Project title three" },
+    "kicker": { "en": "Microservices" },
+    "summary": { "en": "One or two lines describing the project, the problem it solves, and your role in it." },
+    "tags": [
+      { "label": "Kafka", "tone": "accent" },
+      { "label": "Docker", "tone": "neutral" }
+    ],
+    "image": { "src": "/img/project-three.jpg", "alt": { "en": "Project screenshot" } },
+    "url": null,
+    "featured": true,
+    "order": 3
+  }
+]
