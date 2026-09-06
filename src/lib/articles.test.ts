@@ -1,0 +1,61 @@
+import { describe, expect, it } from "vitest";
+import { allArticles, articleBySlug, bodyFor, latestArticles } from "./articles";
+
+describe("allArticles", () => {
+  it("finds the seed article", () => {
+    expect(allArticles().length).toBeGreaterThan(0);
+  });
+
+  it("returns only published articles", () => {
+    expect(allArticles().every((a) => a.published)).toBe(true);
+  });
+
+  it("sorts newest first", () => {
+    const dates = allArticles().map((a) => a.date);
+    expect(dates).toEqual([...dates].sort().reverse());
+  });
+
+  it("gives every article an English body", () => {
+    for (const article of allArticles()) {
+      expect(article.bodies.en, article.slug).toBeTruthy();
+    }
+  });
+});
+
+describe("articleBySlug", () => {
+  it("finds an article by its slug", () => {
+    const first = allArticles()[0]!;
+    expect(articleBySlug(first.slug)?.slug).toBe(first.slug);
+  });
+
+  it("returns undefined for an unknown slug", () => {
+    expect(articleBySlug("no-such-article")).toBeUndefined();
+  });
+});
+
+describe("bodyFor", () => {
+  it("renders the requested language when present", () => {
+    const article = { ...allArticles()[0]!, bodies: { en: "# English", tr: "# Türkçe" } };
+    const result = bodyFor(article, "tr");
+    expect(result.html).toContain("Türkçe");
+    expect(result.fellBack).toBe(false);
+  });
+
+  it("falls back to English and reports it when the language is missing", () => {
+    const article = { ...allArticles()[0]!, bodies: { en: "# English" } };
+    const result = bodyFor(article, "ar");
+    expect(result.html).toContain("English");
+    expect(result.fellBack).toBe(true);
+  });
+
+  it("does not report a fallback when English itself was requested", () => {
+    const article = { ...allArticles()[0]!, bodies: { en: "# English" } };
+    expect(bodyFor(article, "en").fellBack).toBe(false);
+  });
+});
+
+describe("latestArticles", () => {
+  it("caps the result at three by default", () => {
+    expect(latestArticles().length).toBeLessThanOrEqual(3);
+  });
+});

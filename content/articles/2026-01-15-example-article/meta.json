@@ -1,0 +1,15 @@
+{
+  "slug": "2026-01-15-example-article",
+  "date": "2026-01-15",
+  "topic": { "en": "Backend" },
+  "title": { "en": "Article title goes here" },
+  "standfirst": { "en": "A one-sentence standfirst summarising the article. Replace this text." },
+  "readingMinutes": 6,
+  "tags": [
+    { "label": "Tag", "tone": "neutral" },
+    { "label": "Tag", "tone": "neutral" }
+  ],
+  "cover": { "src": "/img/article-cover.jpg", "alt": { "en": "Article cover image" } },
+  "featured": true,
+  "published": true
+}
