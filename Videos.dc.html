@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<script src="./i18n.js"></script>
 </head>
 <body>
 <x-dc>
@@ -20,20 +21,20 @@
   <nav class="nav" style="display:flex; align-items:center; gap:var(--space-6); padding:var(--space-4) var(--space-8); border-bottom:1px solid var(--color-divider)">
     <a href="index.html" class="nav-brand" style="font-family:var(--font-heading); font-weight:600; font-size:20px; letter-spacing:0.04em; text-transform:uppercase; color:var(--color-text)">Your Name</a>
     <div style="display:flex; gap:var(--space-6); margin-left:auto; font-size:15px">
-      <a href="index.html" style="color:var(--color-text)">Home</a>
-      <a href="Projects.dc.html" style="color:var(--color-text)">Projects</a>
-      <a href="Articles.dc.html" style="color:var(--color-text)">Articles</a>
-      <a href="Videos.dc.html" style="color:var(--color-accent-700)">Videos</a>
+      <a href="index.html" data-i18n="nav.home" style="color:var(--color-text)">Home</a>
+      <a href="Projects.dc.html" data-i18n="nav.projects" style="color:var(--color-text)">Projects</a>
+      <a href="Articles.dc.html" data-i18n="nav.articles" style="color:var(--color-text)">Articles</a>
+      <a href="Videos.dc.html" data-i18n="nav.videos" style="color:var(--color-accent-700)">Videos</a>
     </div>
     <div style="display:flex; gap:var(--space-2); font-size:13px; color:var(--color-neutral-600)">
-      <a href="#" style="color:var(--color-accent-700)">EN</a><span>·</span><a href="#" style="color:var(--color-neutral-600)">TR</a><span>·</span><a href="#" style="color:var(--color-neutral-600)">AR</a>
+      <a href="#" data-lang="en" style="color:var(--color-accent-700)">EN</a><span>·</span><a href="#" data-lang="tr" style="color:var(--color-neutral-600)">TR</a><span>·</span><a href="#" data-lang="ar" style="color:var(--color-neutral-600)">AR</a>
     </div>
-    <button class="btn btn-secondary" style="white-space:nowrap">Download CV</button>
+    <button class="btn btn-secondary" data-i18n="nav.downloadCV" style="white-space:nowrap">Download CV</button>
   </nav>
 
   <header style="max-width:1200px; margin:0 auto; padding:calc(var(--space-8) * 2) var(--space-8) var(--space-8)">
-    <span style="font-family:var(--font-heading); text-transform:uppercase; letter-spacing:0.14em; font-size:14px; color:var(--color-accent-700)">Watch</span>
-    <h1 style="margin:var(--space-2) 0 var(--space-3); font-size:52px; line-height:1.05; text-transform:uppercase">Videos</h1>
+    <span data-i18n="videos.kicker" style="font-family:var(--font-heading); text-transform:uppercase; letter-spacing:0.14em; font-size:14px; color:var(--color-accent-700)">Watch</span>
+    <h1 data-i18n="videos.title" style="margin:var(--space-2) 0 var(--space-3); font-size:52px; line-height:1.05; text-transform:uppercase">Videos</h1>
     <p style="margin:0; max-width:60ch; font-size:16px; line-height:1.6; color:var(--color-neutral-700)">A short line describing your videos or channel. Replace this text — and swap each placeholder below for a YouTube embed.</p>
   </header>
 
@@ -78,7 +79,7 @@
 
   <footer style="border-top:1px solid var(--color-divider); padding:var(--space-6) var(--space-8); display:flex; max-width:1200px; margin:0 auto; font-size:13px; color:var(--color-neutral-600)">
     <span>© 2026 Your Name</span>
-    <span style="margin-left:auto">EN · TR · AR</span>
+    <span style="margin-left:auto; display:flex; gap:var(--space-2)"><a href="#" data-lang="en" style="color:inherit">EN</a><span>·</span><a href="#" data-lang="tr" style="color:inherit">TR</a><span>·</span><a href="#" data-lang="ar" style="color:inherit">AR</a></span>
   </footer>
 </div>
 </x-dc>

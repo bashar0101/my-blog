@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<script src="./i18n.js"></script>
 </head>
 <body>
 <x-dc>
@@ -20,15 +21,15 @@
   <nav class="nav" style="display:flex; align-items:center; gap:var(--space-6); padding:var(--space-4) var(--space-8); border-bottom:1px solid var(--color-divider)">
     <span class="nav-brand" style="font-family:var(--font-heading); font-weight:600; font-size:20px; letter-spacing:0.04em; text-transform:uppercase">Your Name</span>
     <div style="display:flex; gap:var(--space-6); margin-left:auto; font-size:15px">
-      <a href="index.html" style="color:var(--color-accent-700)">Home</a>
-      <a href="Projects.dc.html" style="color:var(--color-text)">Projects</a>
-      <a href="Articles.dc.html" style="color:var(--color-text)">Articles</a>
-      <a href="Videos.dc.html" style="color:var(--color-text)">Videos</a>
+      <a href="index.html" data-i18n="nav.home" style="color:var(--color-accent-700)">Home</a>
+      <a href="Projects.dc.html" data-i18n="nav.projects" style="color:var(--color-text)">Projects</a>
+      <a href="Articles.dc.html" data-i18n="nav.articles" style="color:var(--color-text)">Articles</a>
+      <a href="Videos.dc.html" data-i18n="nav.videos" style="color:var(--color-text)">Videos</a>
     </div>
     <div style="display:flex; gap:var(--space-2); font-size:13px; color:var(--color-neutral-600)">
-      <a href="#" style="color:var(--color-accent-700)">EN</a><span>·</span><a href="#" style="color:var(--color-neutral-600)">TR</a><span>·</span><a href="#" style="color:var(--color-neutral-600)">AR</a>
+      <a href="#" data-lang="en" style="color:var(--color-accent-700)">EN</a><span>·</span><a href="#" data-lang="tr" style="color:var(--color-neutral-600)">TR</a><span>·</span><a href="#" data-lang="ar" style="color:var(--color-neutral-600)">AR</a>
     </div>
-    <button class="btn btn-secondary" style="white-space:nowrap">Download CV</button>
+    <button class="btn btn-secondary" data-i18n="nav.downloadCV" style="white-space:nowrap">Download CV</button>
   </nav>
 
   <header style="display:grid; grid-template-columns:1fr 380px; gap:var(--space-8); align-items:center; padding:calc(var(--space-8) * 2.5) var(--space-8); max-width:1200px; margin:0 auto">
@@ -37,8 +38,8 @@
       <h1 style="margin:0; font-size:64px; line-height:1.05; text-transform:uppercase">Your name goes here</h1>
       <p style="margin:0; max-width:52ch; font-size:17px; line-height:1.6; color:var(--color-neutral-700)">One or two sentences introducing yourself — what you build, what you write about, and what you care about. Replace this text.</p>
       <div style="display:flex; gap:var(--space-3); margin-top:var(--space-3)">
-        <button class="btn btn-primary blueprint" style="white-space:nowrap">View projects<i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i></button>
-        <button class="btn btn-secondary" style="white-space:nowrap">Contact me</button>
+        <button class="btn btn-primary blueprint" style="white-space:nowrap"><span data-i18n="hero.viewProjects">View projects</span><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i></button>
+        <button class="btn btn-secondary" data-i18n="hero.contactMe" style="white-space:nowrap">Contact me</button>
       </div>
     </div>
     <figure class="blueprint" style="margin:0; padding:var(--space-3)">
@@ -50,14 +51,14 @@
   </header>
 
   <section style="max-width:1200px; margin:0 auto; padding:var(--space-8); display:grid; grid-template-columns:220px 1fr; gap:var(--space-8); border-top:1px solid var(--color-divider)">
-    <h2 style="margin:0; font-size:28px; text-transform:uppercase; letter-spacing:0.06em">About</h2>
+    <h2 data-i18n="about.heading" style="margin:0; font-size:28px; text-transform:uppercase; letter-spacing:0.06em">About</h2>
     <p style="margin:0; font-size:16px; line-height:1.7; color:var(--color-neutral-700); max-width:68ch">A short paragraph about your background as a backend developer — your experience with Java and Spring Boot, your frontend work with React, and the kind of problems you enjoy solving. Replace this text with your own story.</p>
   </section>
 
   <section style="max-width:1200px; margin:0 auto; padding:var(--space-8); border-top:1px solid var(--color-divider)">
     <div style="display:flex; align-items:baseline; gap:var(--space-4); margin-bottom:var(--space-6)">
-      <h2 style="margin:0; font-size:28px; text-transform:uppercase; letter-spacing:0.06em">Featured projects</h2>
-      <a href="Projects.dc.html" style="margin-left:auto; font-size:14px">All projects →</a>
+      <h2 data-i18n="featured.heading" style="margin:0; font-size:28px; text-transform:uppercase; letter-spacing:0.06em">Featured projects</h2>
+      <a href="Projects.dc.html" data-i18n="featured.viewAll" style="margin-left:auto; font-size:14px">All projects →</a>
     </div>
     <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:var(--space-6)">
       <article class="card blueprint" style="display:flex; flex-direction:column; gap:var(--space-3)">
@@ -90,8 +91,8 @@
   <section style="max-width:1200px; margin:0 auto; padding:var(--space-8); border-top:1px solid var(--color-divider); display:grid; grid-template-columns:1fr 1fr; gap:calc(var(--space-8) * 2)">
     <div>
       <div style="display:flex; align-items:baseline; margin-bottom:var(--space-6)">
-        <h2 style="margin:0; font-size:28px; text-transform:uppercase; letter-spacing:0.06em">Latest articles</h2>
-        <a href="Articles.dc.html" style="margin-left:auto; font-size:14px">All articles →</a>
+        <h2 data-i18n="latest.heading" style="margin:0; font-size:28px; text-transform:uppercase; letter-spacing:0.06em">Latest articles</h2>
+        <a href="Articles.dc.html" data-i18n="latest.viewAll" style="margin-left:auto; font-size:14px">All articles →</a>
       </div>
       <div style="display:flex; flex-direction:column; gap:var(--space-6)">
         <article style="display:flex; flex-direction:column; gap:var(--space-1)">
@@ -113,8 +114,8 @@
     </div>
     <div>
       <div style="display:flex; align-items:baseline; margin-bottom:var(--space-6)">
-        <h2 style="margin:0; font-size:28px; text-transform:uppercase; letter-spacing:0.06em">Videos</h2>
-        <a href="Videos.dc.html" style="margin-left:auto; font-size:14px">All videos →</a>
+        <h2 data-i18n="videosHome.heading" style="margin:0; font-size:28px; text-transform:uppercase; letter-spacing:0.06em">Videos</h2>
+        <a href="Videos.dc.html" data-i18n="videosHome.viewAll" style="margin-left:auto; font-size:14px">All videos →</a>
       </div>
       <div style="display:flex; flex-direction:column; gap:var(--space-6)">
         <figure class="blueprint" style="margin:0; padding:var(--space-2)">
@@ -132,18 +133,18 @@
   </section>
 
   <section style="max-width:1200px; margin:0 auto; padding:var(--space-8); border-top:1px solid var(--color-divider); display:grid; grid-template-columns:220px 1fr; gap:var(--space-8)">
-    <h2 style="margin:0; font-size:28px; text-transform:uppercase; letter-spacing:0.06em">Skills</h2>
+    <h2 data-i18n="skills.heading" style="margin:0; font-size:28px; text-transform:uppercase; letter-spacing:0.06em">Skills</h2>
     <div style="display:flex; flex-direction:column; gap:var(--space-4)">
       <div style="display:flex; gap:var(--space-2); flex-wrap:wrap; align-items:center">
-        <span style="font-size:13px; text-transform:uppercase; letter-spacing:0.08em; color:var(--color-neutral-600); width:90px">Backend</span>
+        <span data-i18n="skills.backend" style="font-size:13px; text-transform:uppercase; letter-spacing:0.08em; color:var(--color-neutral-600); width:90px">Backend</span>
         <span class="tag tag-accent">Java</span><span class="tag tag-accent">Spring Boot</span><span class="tag tag-neutral">Your skill</span><span class="tag tag-neutral">Your skill</span>
       </div>
       <div style="display:flex; gap:var(--space-2); flex-wrap:wrap; align-items:center">
-        <span style="font-size:13px; text-transform:uppercase; letter-spacing:0.08em; color:var(--color-neutral-600); width:90px">Frontend</span>
+        <span data-i18n="skills.frontend" style="font-size:13px; text-transform:uppercase; letter-spacing:0.08em; color:var(--color-neutral-600); width:90px">Frontend</span>
         <span class="tag tag-accent">React</span><span class="tag tag-neutral">Your skill</span><span class="tag tag-neutral">Your skill</span>
       </div>
       <div style="display:flex; gap:var(--space-2); flex-wrap:wrap; align-items:center">
-        <span style="font-size:13px; text-transform:uppercase; letter-spacing:0.08em; color:var(--color-neutral-600); width:90px">Tools</span>
+        <span data-i18n="skills.tools" style="font-size:13px; text-transform:uppercase; letter-spacing:0.08em; color:var(--color-neutral-600); width:90px">Tools</span>
         <span class="tag tag-neutral">Your tool</span><span class="tag tag-neutral">Your tool</span><span class="tag tag-neutral">Your tool</span>
       </div>
     </div>
@@ -151,25 +152,25 @@
 
   <section style="max-width:1200px; margin:0 auto; padding:var(--space-8); border-top:1px solid var(--color-divider); display:grid; grid-template-columns:1fr 1fr; gap:calc(var(--space-8) * 2)">
     <div style="display:flex; flex-direction:column; gap:var(--space-4)">
-      <h2 style="margin:0; font-size:28px; text-transform:uppercase; letter-spacing:0.06em">Contact</h2>
+      <h2 data-i18n="contact.heading" style="margin:0; font-size:28px; text-transform:uppercase; letter-spacing:0.06em">Contact</h2>
       <p style="margin:0; font-size:16px; color:var(--color-neutral-700)">A short line inviting people to reach out. Replace this text.</p>
       <a href="#" style="font-size:17px">your.email@example.com</a>
       <div style="display:flex; gap:var(--space-4); font-size:15px">
         <a href="#">GitHub</a><a href="#">LinkedIn</a><a href="#">YouTube</a>
       </div>
-      <button class="btn btn-secondary" style="align-self:flex-start">Download CV</button>
+      <button class="btn btn-secondary" data-i18n="nav.downloadCV" style="align-self:flex-start">Download CV</button>
     </div>
     <form style="display:flex; flex-direction:column; gap:var(--space-4)">
-      <div class="field"><label>Name</label><input class="input" placeholder="Your visitor's name"></input></div>
-      <div class="field"><label>Email</label><input class="input" placeholder="email@example.com"></input></div>
-      <div class="field"><label>Message</label><textarea class="input" rows="4" placeholder="Message…"></textarea></div>
-      <button class="btn btn-primary blueprint" type="button" style="align-self:flex-start">Send message<i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i></button>
+      <div class="field"><label data-i18n="contact.name">Name</label><input class="input" placeholder="Your visitor's name"></input></div>
+      <div class="field"><label data-i18n="contact.email">Email</label><input class="input" placeholder="email@example.com"></input></div>
+      <div class="field"><label data-i18n="contact.message">Message</label><textarea class="input" rows="4" placeholder="Message…"></textarea></div>
+      <button class="btn btn-primary blueprint" type="button" style="align-self:flex-start"><span data-i18n="contact.send">Send message</span><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i></button>
     </form>
   </section>
 
   <footer style="border-top:1px solid var(--color-divider); padding:var(--space-6) var(--space-8); display:flex; max-width:1200px; margin:0 auto; font-size:13px; color:var(--color-neutral-600)">
     <span>© 2026 Your Name</span>
-    <span style="margin-left:auto">EN · TR · AR</span>
+    <span style="margin-left:auto; display:flex; gap:var(--space-2)"><a href="#" data-lang="en" style="color:inherit">EN</a><span>·</span><a href="#" data-lang="tr" style="color:inherit">TR</a><span>·</span><a href="#" data-lang="ar" style="color:inherit">AR</a></span>
   </footer>
 </div>
 </x-dc>
