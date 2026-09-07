@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import LangLayout from "./routes/LangLayout";
 import RootRedirect from "./routes/RootRedirect";
@@ -8,6 +9,9 @@ import Articles from "./routes/Articles";
 import Article from "./routes/Article";
 import Videos from "./routes/Videos";
 import { LangProvider } from "./i18n/LangProvider";
+
+const AdminLayout = lazy(() => import("./routes/admin/AdminLayout"));
+const AdminHome = lazy(() => import("./routes/admin/AdminHome"));
 
 export default function App() {
   return (
@@ -20,6 +24,16 @@ export default function App() {
         <Route path="articles/:slug" element={<Article />} />
         <Route path="videos" element={<Videos />} />
         <Route path="*" element={<NotFound />} />
+      </Route>
+      <Route
+        path="/admin"
+        element={
+          <Suspense fallback={<p style={{ padding: "var(--space-8)" }}>Loading…</p>}>
+            <AdminLayout />
+          </Suspense>
+        }
+      >
+        <Route index element={<AdminHome />} />
       </Route>
       <Route
         path="*"
