@@ -9,10 +9,10 @@
     "en": "BASHAR KHOUJAH"
   },
   "intro": {
-    "en": "One or two sentences introducing yourself — what you build, what you write about, and what you care about. Replace this text."
+    "en": "Computer Engineering graduate and Full-Stack Developer specializing in Java, Spring Boot, REST APIs, React and scalable web applications."
   },
   "about": {
-    "en": "A short paragraph about your background as a backend developer — your experience with Java and Spring Boot, your frontend work with React, and the kind of problems you enjoy solving. Replace this text with your own story."
+    "en": "Hi, I'm Bashar Khouja, a Computer Engineering graduate and Backend Developer with a strong focus on Java and Spring Boot.\n\nI enjoy building scalable web applications and solving real-world problems through software. My experience includes developing REST APIs, implementing authentication and authorization with Spring Security and JWT, working with relational databases such as MySQL and PostgreSQL, and deploying applications using Docker and cloud platforms.\n\nOne of my key projects is a full-stack E-commerce application built with Spring Boot, React, and MySQL, where I implemented secure authentication, order management, inventory validation, automated testing, and containerized deployment. I have also worked on a machine learning–based Nutrition Recommendation System that combines Spring Boot, Flask, React, and data science techniques to provide personalized recommendations.\n\nI am passionate about backend development, software architecture, and continuous learning. Currently, I am looking for opportunities to contribute to professional software projects, expand my technical skills, and grow as a software engineer.\n\nTechnologies: Java, Spring Boot, Spring Security, JPA, MySQL, PostgreSQL, Docker, Redis, React, Git, AWS, REST APIs.\n"
   },
   "email": "basharhas1999@gmail.com",
   "cv": {
@@ -36,6 +36,10 @@
     {
       "label": "YouTube",
       "url": "https://www.youtube.com/@basharKhoujah/"
+    },
+    {
+      "label": "isnatgram ",
+      "url": "instgram "
     }
   ],
   "skills": [
@@ -55,11 +59,7 @@
           "tone": "accent"
         },
         {
-          "label": "Your skill",
-          "tone": "neutral"
-        },
-        {
-          "label": "Your skill",
+          "label": "Node.js",
           "tone": "neutral"
         }
       ]
@@ -74,14 +74,6 @@
         {
           "label": "React",
           "tone": "accent"
-        },
-        {
-          "label": "Your skill",
-          "tone": "neutral"
-        },
-        {
-          "label": "Your skill",
-          "tone": "neutral"
         }
       ]
     },

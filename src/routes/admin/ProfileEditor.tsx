@@ -1,11 +1,16 @@
+import { useState } from "react";
 import type { Profile } from "../../types";
 import { profile as currentProfile } from "../../lib/content";
 import LocalizedField from "../../components/admin/LocalizedField";
 import SaveBar from "../../components/admin/SaveBar";
 import { useContentDraft } from "../../lib/admin/useContentDraft";
+import CollapsibleSection from "../../components/admin/CollapsibleSection";
+import ImageUpload from "../../components/admin/ImageUpload";
+import type { StoredFile } from "../../lib/store";
 
 export default function ProfileEditor() {
   const { draft, setDraft, status, error, save } = useContentDraft<Profile>(currentProfile);
+  const [portraitFile, setPortraitFile] = useState<StoredFile | null>(null);
 
   function field<K extends keyof Profile>(key: K, value: Profile[K]) {
     setDraft({ ...draft, [key]: value });
@@ -15,6 +20,7 @@ export default function ProfileEditor() {
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
       <h1 style={{ margin: 0, fontSize: 32 }}>Profile</h1>
 
+      <CollapsibleSection title="Core profile" open>
       <LocalizedField label="Name" value={draft.name} onChange={(v) => field("name", v)} />
       <LocalizedField label="Kicker" value={draft.kicker} onChange={(v) => field("kicker", v)} />
       <LocalizedField label="Headline" value={draft.headline} onChange={(v) => field("headline", v)} />
@@ -35,15 +41,12 @@ export default function ProfileEditor() {
 
       <fieldset style={{ border: "1px solid var(--color-divider)", padding: "var(--space-4)" }}>
         <legend>Portrait</legend>
-        <div className="field">
-          <label htmlFor="portrait-src">Image path</label>
-          <input id="portrait-src" className="input" value={draft.portrait.src} onChange={(event) => field("portrait", { ...draft.portrait, src: event.target.value })} />
-        </div>
+        <ImageUpload label="Portrait" value={draft.portrait.src} onChange={(src, file) => { field("portrait", { ...draft.portrait, src }); setPortraitFile(file); }} />
         <LocalizedField label="Portrait description" value={draft.portrait.alt} onChange={(alt) => field("portrait", { ...draft.portrait, alt })} />
       </fieldset>
+      </CollapsibleSection>
 
-      <fieldset style={{ border: "1px solid var(--color-divider)", padding: "var(--space-4)" }}>
-        <legend>Social links</legend>
+      <CollapsibleSection title="Social links">
         {draft.socials.map((social, index) => (
           <div key={index} style={{ display: "flex", gap: "var(--space-3)", marginBottom: "var(--space-2)" }}>
             <div className="field" style={{ flex: 1 }}>
@@ -76,10 +79,9 @@ export default function ProfileEditor() {
           </div>
         ))}
         <button className="btn btn-secondary" type="button" onClick={() => field("socials", [...draft.socials, { label: "New link", url: "" }])}>Add social link</button>
-      </fieldset>
+      </CollapsibleSection>
 
-      <fieldset style={{ border: "1px solid var(--color-divider)", padding: "var(--space-4)" }}>
-        <legend>Skills</legend>
+      <CollapsibleSection title="Skills">
         {draft.skills.map((skillGroup, groupIndex) => (
           <div key={groupIndex} style={{ borderBottom: "1px solid var(--color-divider)", paddingBottom: "var(--space-4)", marginBottom: "var(--space-4)" }}>
             <LocalizedField label={`Skill group ${groupIndex + 1}`} value={skillGroup.group} onChange={(group) => {
@@ -94,7 +96,7 @@ export default function ProfileEditor() {
           </div>
         ))}
         <button className="btn btn-secondary" type="button" onClick={() => field("skills", [...draft.skills, { group: { en: "New group" }, items: [] }])}>Add skill group</button>
-      </fieldset>
+      </CollapsibleSection>
 
       <SaveBar
         status={status}
@@ -102,6 +104,7 @@ export default function ProfileEditor() {
         onSave={() =>
           save(
             [
+              ...(portraitFile ? [portraitFile] : []),
               {
                 path: "src/content/profile.json",
                 content: JSON.stringify(draft, null, 2) + "\n",

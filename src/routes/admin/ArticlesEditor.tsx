@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import type { Article, Lang } from "../../types";
-import { allArticles } from "../../lib/articles";
+import { allArticlesForAdmin } from "../../lib/articles";
 import { renderMarkdown } from "../../lib/markdown";
 import { LANGS } from "../../lib/localize";
 import LocalizedField from "../../components/admin/LocalizedField";
@@ -8,6 +8,7 @@ import SaveBar from "../../components/admin/SaveBar";
 import { useContentDraft } from "../../lib/admin/useContentDraft";
 import { articleToFiles, slugify } from "../../lib/admin/articleFiles";
 import type { StoredFile } from "../../lib/store";
+import ImageUpload from "../../components/admin/ImageUpload";
 
 function today() { return new Date().toISOString().slice(0, 10); }
 function blankArticle(): Article {
@@ -19,7 +20,7 @@ function deletionFiles(article: Article): StoredFile[] {
 }
 
 export default function ArticlesEditor() {
-  const articles = useMemo(() => allArticles(), []);
+  const articles = useMemo(() => allArticlesForAdmin(), []);
   const [editing, setEditing] = useState<Article | null>(null);
   const [removed, setRemoved] = useState<Article | null>(null);
   if (editing) return <ArticleForm article={editing} onClose={() => setEditing(null)} />;
@@ -39,6 +40,7 @@ function RemoveArticle({ article, onClose }: { article: Article; onClose: () => 
 function ArticleForm({ article, onClose }: { article: Article; onClose: () => void }) {
   const { draft, setDraft, status, error, save } = useContentDraft<Article>(article);
   const [bodyLang, setBodyLang] = useState<Lang>("en");
+  const [coverFile, setCoverFile] = useState<StoredFile | null>(null);
   const body = draft.bodies[bodyLang] ?? "";
   return <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
     <div style={{ display: "flex", alignItems: "baseline", gap: "var(--space-4)" }}><h1 style={{ margin: 0, fontSize: 32 }}>Edit article</h1><button className="btn btn-secondary" type="button" onClick={onClose} style={{ marginInlineStart: "auto" }}>Back to list</button></div>
@@ -47,10 +49,16 @@ function ArticleForm({ article, onClose }: { article: Article; onClose: () => vo
     <LocalizedField label="Title" value={draft.title} onChange={(title) => setDraft({ ...draft, title })} />
     <LocalizedField label="Topic" value={draft.topic} onChange={(topic) => setDraft({ ...draft, topic })} />
     <LocalizedField label="Standfirst" value={draft.standfirst} multiline onChange={(standfirst) => setDraft({ ...draft, standfirst })} />
+    <fieldset style={{ border: "1px solid var(--color-divider)", padding: "var(--space-3)" }}><legend>Tags</legend>
+      {draft.tags.map((tag, index) => <div key={index} style={{ display: "flex", gap: "var(--space-2)", marginBottom: "var(--space-2)" }}><div className="field" style={{ flex: 1 }}><label htmlFor={`article-tag-${index}`}>Tag</label><input id={`article-tag-${index}`} className="input" value={tag.label} onChange={(event) => { const tags = [...draft.tags]; tags[index] = { ...tag, label: event.target.value }; setDraft({ ...draft, tags }); }} /></div><button className="btn btn-secondary" type="button" onClick={() => setDraft({ ...draft, tags: draft.tags.filter((_, i) => i !== index) })}>Remove tag</button></div>)}
+      <button className="btn btn-secondary" type="button" onClick={() => setDraft({ ...draft, tags: [...draft.tags, { label: "New tag", tone: "neutral" }] })}>Add tag</button>
+    </fieldset>
+    <LocalizedField label="Cover image description" value={draft.cover?.alt ?? { en: "" }} onChange={(alt) => setDraft({ ...draft, cover: { src: draft.cover?.src ?? "", alt } })} />
+    <ImageUpload label="Cover image" value={draft.cover?.src ?? ""} onChange={(src, file) => { setDraft({ ...draft, cover: { src, alt: draft.cover?.alt ?? { en: "" } } }); setCoverFile(file); }} />
     <div className="field"><label htmlFor="article-minutes">Reading minutes</label><input id="article-minutes" className="input" type="number" min="1" value={draft.readingMinutes} onChange={(event) => setDraft({ ...draft, readingMinutes: Math.max(1, Number(event.target.value) || 1) })} /></div>
     <label style={{ display: "flex", gap: "var(--space-2)", alignItems: "center" }}><input type="checkbox" checked={draft.published} onChange={(event) => setDraft({ ...draft, published: event.target.checked })} />Published</label>
     <div role="tablist" aria-label="Body language" style={{ display: "flex", gap: "var(--space-2)" }}>{LANGS.map((lang) => <button key={lang} type="button" role="tab" aria-selected={lang === bodyLang} className="btn btn-secondary" onClick={() => setBodyLang(lang)}>{lang.toUpperCase()}</button>)}</div>
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "var(--space-4)" }}><div className="field"><label htmlFor="article-body">Body (Markdown)</label><textarea id="article-body" className="input" rows={20} value={body} dir={bodyLang === "ar" ? "rtl" : "ltr"} onChange={(event) => setDraft({ ...draft, bodies: { ...draft.bodies, [bodyLang]: event.target.value } })} /></div><div data-testid="markdown-preview" className="article-body" style={{ border: "1px solid var(--color-divider)", padding: "var(--space-4)" }} dangerouslySetInnerHTML={{ __html: renderMarkdown(body) }} /></div>
-    <SaveBar status={status} error={error} onSave={() => save(articleToFiles(draft), `content: update article ${draft.slug}`)} />
+    <SaveBar status={status} error={error} onSave={() => save([...articleToFiles(draft), ...(draft.slug !== article.slug ? deletionFiles(article) : []), ...(coverFile ? [coverFile] : [])], `content: update article ${draft.slug}`)} />
   </div>;
 }

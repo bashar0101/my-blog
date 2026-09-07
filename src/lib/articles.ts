@@ -20,7 +20,7 @@ function langFromPath(path: string): string {
   return (path.split("/").pop() ?? "").replace(/\.md$/, "");
 }
 
-const articles: Article[] = Object.entries(metaModules)
+const loadedArticles: Article[] = Object.entries(metaModules)
   .map(([path, meta]) => {
     const slug = slugFromPath(path);
     const bodies: Partial<Record<Lang, string>> = {};
@@ -31,11 +31,17 @@ const articles: Article[] = Object.entries(metaModules)
     }
     return { ...meta, slug, bodies };
   })
-  .filter((article) => article.published)
   .sort((a, b) => b.date.localeCompare(a.date));
+
+const articles = loadedArticles.filter((article) => article.published);
 
 export function allArticles(): Article[] {
   return articles;
+}
+
+/** Admin needs drafts too, so it can publish or permanently remove them. */
+export function allArticlesForAdmin(): Article[] {
+  return loadedArticles;
 }
 
 export function articleBySlug(slug: string): Article | undefined {
