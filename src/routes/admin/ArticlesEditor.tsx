@@ -34,7 +34,7 @@ export default function ArticlesEditor() {
 
 function RemoveArticle({ article, onClose }: { article: Article; onClose: () => void }) {
   const { status, error, save } = useContentDraft(article);
-  return <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}><h1 style={{ margin: 0, fontSize: 32 }}>Remove article</h1><p style={{ margin: 0 }}>Permanently remove “{article.title.en}” and its language files?</p><div style={{ display: "flex", gap: "var(--space-3)" }}><button className="btn btn-secondary" type="button" onClick={onClose}>Cancel</button><SaveBar status={status} error={error} onSave={() => save(deletionFiles(article), `content: remove article ${article.slug}`)} /></div></div>;
+  return <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}><h1 style={{ margin: 0, fontSize: 32 }}>Remove article</h1><p style={{ margin: 0 }}>Permanently remove “{article.title.en}” and its language files?</p><div style={{ display: "flex", gap: "var(--space-3)" }}><button className="btn btn-secondary" type="button" onClick={onClose}>Cancel</button><SaveBar status={status} error={error} onSave={async () => { if (await save(deletionFiles(article), `content: remove article ${article.slug}`)) onClose(); }} /></div></div>;
 }
 
 function ArticleForm({ article, onClose }: { article: Article; onClose: () => void }) {

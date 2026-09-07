@@ -10,12 +10,13 @@ export function useContentDraft<T>(initial: T) {
   const [status, setStatus] = useState<SaveStatus>("idle");
   const [error, setError] = useState("");
 
-  const save = useCallback(async (files: StoredFile[], message: string) => {
+  const save = useCallback(async (files: StoredFile[], message: string): Promise<boolean> => {
     setStatus("saving");
     setError("");
     try {
       await createStore(readToken()).write(files, message);
       setStatus("saved");
+      return true;
     } catch (cause) {
       setStatus("error");
       setError(
@@ -25,6 +26,7 @@ export function useContentDraft<T>(initial: T) {
             ? cause.message
             : "Save failed."
       );
+      return false;
     }
   }, []);
 
