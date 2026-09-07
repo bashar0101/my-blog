@@ -1,4 +1,4 @@
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, resolve, sep } from "node:path";
 import type { Plugin } from "vite";
 
@@ -7,6 +7,7 @@ type StoredFileLike = {
   path: string;
   content: string;
   encoding: "utf8" | "base64";
+  delete?: boolean;
 };
 
 export const WRITABLE_PREFIXES = ["src/content/", "content/articles/", "public/img/"];
@@ -81,6 +82,10 @@ export function adminWritePlugin(): Plugin {
             }
 
             for (const { target, file } of result.targets) {
+              if (file.delete) {
+                rmSync(target, { force: true });
+                continue;
+              }
               mkdirSync(dirname(target), { recursive: true });
               writeFileSync(
                 target,

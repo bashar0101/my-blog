@@ -2,6 +2,8 @@ export interface StoredFile {
   path: string;
   content: string;
   encoding: "utf8" | "base64";
+  /** Deletes this already-known content file when true. */
+  delete?: boolean;
 }
 
 export interface ContentStore {

@@ -1,58 +1,33 @@
 [
   {
     "id": "project-one",
-    "title": { "en": "Project title one" },
-    "kicker": { "en": "Backend · API" },
-    "summary": { "en": "One or two lines describing the project, the problem it solves, and your role in it." },
+    "title": {
+      "en": "Senyora Resturant "
+    },
+    "kicker": {
+      "en": "Backend · API"
+    },
+    "summary": {
+      "en": "This is a resturant for senyroa in istanbul"
+    },
     "tags": [
-      { "label": "Spring Boot", "tone": "accent" },
-      { "label": "PostgreSQL", "tone": "neutral" }
+      {
+        "label": "Spring Boot",
+        "tone": "accent"
+      },
+      {
+        "label": "PostgreSQL",
+        "tone": "neutral"
+      }
     ],
-    "image": { "src": "/img/project-one.jpg", "alt": { "en": "Project screenshot" } },
-    "url": null,
+    "image": {
+      "src": "/img/senyora.jpg",
+      "alt": {
+        "en": "project 1 image"
+      }
+    },
+    "url": "https://github.com/bashar0101/ecommerce-api",
     "featured": true,
     "order": 1
-  },
-  {
-    "id": "project-two",
-    "title": { "en": "Project title two" },
-    "kicker": { "en": "Full stack" },
-    "summary": { "en": "One or two lines describing the project, the problem it solves, and your role in it." },
-    "tags": [
-      { "label": "Java", "tone": "accent" },
-      { "label": "React", "tone": "neutral" }
-    ],
-    "image": { "src": "/img/project-two.jpg", "alt": { "en": "Project screenshot" } },
-    "url": null,
-    "featured": true,
-    "order": 2
-  },
-  {
-    "id": "project-three",
-    "title": { "en": "Project title three" },
-    "kicker": { "en": "Microservices" },
-    "summary": { "en": "One or two lines describing the project, the problem it solves, and your role in it." },
-    "tags": [
-      { "label": "Kafka", "tone": "accent" },
-      { "label": "Docker", "tone": "neutral" }
-    ],
-    "image": { "src": "/img/project-three.jpg", "alt": { "en": "Project screenshot" } },
-    "url": null,
-    "featured": true,
-    "order": 3
-  },
-  {
-    "id": "project-four",
-    "title": { "en": "Project title four" },
-    "kicker": { "en": "Data pipeline" },
-    "summary": { "en": "One or two lines describing the project, the problem it solves, and your role in it." },
-    "tags": [
-      { "label": "Python", "tone": "accent" },
-      { "label": "Airflow", "tone": "neutral" }
-    ],
-    "image": { "src": "/img/project-four.jpg", "alt": { "en": "Project screenshot" } },
-    "url": null,
-    "featured": true,
-    "order": 0
   }
 ]

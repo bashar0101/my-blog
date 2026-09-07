@@ -82,8 +82,12 @@ export class GitHubStore implements ContentStore {
 
     const headCommit = await this.call(`${this.repoPath}/git/commits/${head}`);
 
-    const blobs: { path: string; sha: string }[] = [];
+    const blobs: { path: string; sha: string | null }[] = [];
     for (const file of files) {
+      if (file.delete) {
+        blobs.push({ path: file.path, sha: null });
+        continue;
+      }
       const blob = await this.call(`${this.repoPath}/git/blobs`, {
         method: "POST",
         body: JSON.stringify({

@@ -1,45 +1,128 @@
 {
-  "name": { "en": "BASHAR KHOUJAH" },
-  "kicker": { "en": "Java · Full-Stack · ML . AI " },
-  "headline": { "en": "BASHAR KHOUJAH" },
+  "name": {
+    "en": "BASHAR KHOUJAH"
+  },
+  "kicker": {
+    "en": "Java · Full-Stack · ML . AI "
+  },
+  "headline": {
+    "en": "BASHAR KHOUJAH"
+  },
   "intro": {
     "en": "One or two sentences introducing yourself — what you build, what you write about, and what you care about. Replace this text."
   },
   "about": {
     "en": "A short paragraph about your background as a backend developer — your experience with Java and Spring Boot, your frontend work with React, and the kind of problems you enjoy solving. Replace this text with your own story."
   },
-  "email": "your.email@example.com",
-  "cv": { "en": "/cv-en.pdf" },
-  "portrait": { "src": "/img/portrait.jpeg", "alt": { "en": "Your portrait" } },
+  "email": "basharhas1999@gmail.com",
+  "cv": {
+    "en": "/cv-en.pdf"
+  },
+  "portrait": {
+    "src": "/img/portrait.jpeg",
+    "alt": {
+      "en": "Your portrait"
+    }
+  },
   "socials": [
-    { "label": "GitHub", "url": "https://github.com/bashar0101/" },
-    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/bashar-khoujah/" },
-    { "label": "YouTube", "url": "https://www.youtube.com/@basharKhoujah/" }
+    {
+      "label": "GitHub",
+      "url": "https://github.com/bashar0101/"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/bashar-khoujah/"
+    },
+    {
+      "label": "YouTube",
+      "url": "https://www.youtube.com/@basharKhoujah/"
+    }
   ],
   "skills": [
     {
-      "group": { "en": "Backend", "tr": "Backend", "ar": "الواجهة الخلفية" },
+      "group": {
+        "en": "Backend",
+        "tr": "Backend",
+        "ar": "الواجهة الخلفية"
+      },
       "items": [
-        { "label": "Java", "tone": "accent" },
-        { "label": "Spring Boot", "tone": "accent" },
-        { "label": "Your skill", "tone": "neutral" },
-        { "label": "Your skill", "tone": "neutral" }
+        {
+          "label": "Java",
+          "tone": "accent"
+        },
+        {
+          "label": "Spring Boot",
+          "tone": "accent"
+        },
+        {
+          "label": "Your skill",
+          "tone": "neutral"
+        },
+        {
+          "label": "Your skill",
+          "tone": "neutral"
+        }
       ]
     },
     {
-      "group": { "en": "Frontend", "tr": "Frontend", "ar": "الواجهة الأمامية" },
+      "group": {
+        "en": "Frontend",
+        "tr": "Frontend",
+        "ar": "الواجهة الأمامية"
+      },
       "items": [
-        { "label": "React", "tone": "accent" },
-        { "label": "Your skill", "tone": "neutral" },
-        { "label": "Your skill", "tone": "neutral" }
+        {
+          "label": "React",
+          "tone": "accent"
+        },
+        {
+          "label": "Your skill",
+          "tone": "neutral"
+        },
+        {
+          "label": "Your skill",
+          "tone": "neutral"
+        }
       ]
     },
     {
-      "group": { "en": "Tools", "tr": "Araçlar", "ar": "الأدوات" },
+      "group": {
+        "en": "sql",
+        "tr": "Araçlar",
+        "ar": "الأدوات"
+      },
       "items": [
-        { "label": "Your tool", "tone": "neutral" },
-        { "label": "Your tool", "tone": "neutral" },
-        { "label": "Your tool", "tone": "neutral" }
+        {
+          "label": "mysql ",
+          "tone": "neutral"
+        },
+        {
+          "label": "plsql",
+          "tone": "neutral"
+        },
+        {
+          "label": "oraclesql",
+          "tone": "neutral"
+        }
+      ]
+    },
+    {
+      "group": {
+        "en": "DevOps"
+      },
+      "items": [
+        {
+          "label": "vercel",
+          "tone": "neutral"
+        },
+        {
+          "label": "AWS",
+          "tone": "neutral"
+        },
+        {
+          "label": "Render",
+          "tone": "neutral"
+        }
       ]
     }
   ]
