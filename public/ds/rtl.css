@@ -109,3 +109,11 @@ a:hover {
   letter-spacing: normal !important;
   text-transform: none !important;
 }
+
+/* Admin: a language tab whose translation is still empty. */
+[role="tab"][data-empty="true"] {
+  opacity: 0.55;
+}
+[role="tab"][aria-selected="true"] {
+  border-color: var(--color-accent-700);
+}

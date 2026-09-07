@@ -1,7 +1,7 @@
 {
-  "name": { "en": "Your Name" },
-  "kicker": { "en": "Java · Spring Boot · React" },
-  "headline": { "en": "Your name goes here" },
+  "name": { "en": "BASHAR KHOUJAH" },
+  "kicker": { "en": "Java · Full-Stack · ML . AI " },
+  "headline": { "en": "BASHAR KHOUJAH" },
   "intro": {
     "en": "One or two sentences introducing yourself — what you build, what you write about, and what you care about. Replace this text."
   },
@@ -10,11 +10,11 @@
   },
   "email": "your.email@example.com",
   "cv": { "en": "/cv-en.pdf" },
-  "portrait": { "src": "/img/portrait.jpg", "alt": { "en": "Your portrait" } },
+  "portrait": { "src": "/img/portrait.jpeg", "alt": { "en": "Your portrait" } },
   "socials": [
-    { "label": "GitHub", "url": "https://github.com/" },
-    { "label": "LinkedIn", "url": "https://www.linkedin.com/" },
-    { "label": "YouTube", "url": "https://www.youtube.com/" }
+    { "label": "GitHub", "url": "https://github.com/bashar0101/" },
+    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/bashar-khoujah/" },
+    { "label": "YouTube", "url": "https://www.youtube.com/@basharKhoujah/" }
   ],
   "skills": [
     {
