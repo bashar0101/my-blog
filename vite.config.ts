@@ -1,9 +1,10 @@
 /// <reference types="vitest" />
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { adminWritePlugin } from "./vite-plugin-admin-write";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), adminWritePlugin()],
   test: {
     environment: "jsdom",
     setupFiles: ["./src/vitest.setup.ts"],
