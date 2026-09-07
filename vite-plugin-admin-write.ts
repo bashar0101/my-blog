@@ -2,15 +2,51 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve, sep } from "node:path";
 import type { Plugin } from "vite";
 
-const WRITABLE_PREFIXES = ["src/content/", "content/articles/", "public/img/"];
+/** Local mirror of src/lib/store/types.ts's StoredFile — this file must not import from src/. */
+type StoredFileLike = {
+  path: string;
+  content: string;
+  encoding: "utf8" | "base64";
+};
 
-function isWritablePath(path: string): boolean {
+export const WRITABLE_PREFIXES = ["src/content/", "content/articles/", "public/img/"];
+
+export function isWritablePath(path: string): boolean {
   if (!path) return false;
   if (path.includes("\\")) return false;
   if (path.startsWith("/")) return false;
   if (/^[A-Za-z]:/.test(path)) return false;
   if (path.split("/").includes("..")) return false;
   return WRITABLE_PREFIXES.some((p) => path.startsWith(p) && path.length > p.length);
+}
+
+/**
+ * Validates every file in the batch before any of them is written, so the
+ * middleware never has to unwind a partial write. Runs both checks — the
+ * string guard and the post-resolve() root containment check — over the
+ * whole batch and returns the first failure, or the resolved write targets
+ * for the whole batch when every file passes.
+ */
+export function resolveWrites(
+  root: string,
+  files: StoredFileLike[]
+): { error: string } | { targets: { target: string; file: StoredFileLike }[] } {
+  const targets: { target: string; file: StoredFileLike }[] = [];
+
+  for (const file of files) {
+    if (!isWritablePath(file.path)) {
+      return { error: `Path is not writable: ${file.path}` };
+    }
+    // Resolve and re-check: a path that passes the string guard but
+    // escapes the root once resolved is rejected here.
+    const target = resolve(root, file.path);
+    if (!target.startsWith(resolve(root) + sep)) {
+      return { error: `Path escapes the project root: ${file.path}` };
+    }
+    targets.push({ target, file });
+  }
+
+  return { targets };
 }
 
 /**
@@ -34,25 +70,17 @@ export function adminWritePlugin(): Plugin {
         req.on("data", (chunk) => (raw += chunk));
         req.on("end", () => {
           try {
-            const { files } = JSON.parse(raw) as {
-              files: { path: string; content: string; encoding: "utf8" | "base64" }[];
-            };
+            const { files } = JSON.parse(raw) as { files: StoredFileLike[] };
 
             const root = server.config.root;
-            for (const file of files) {
-              if (!isWritablePath(file.path)) {
-                res.statusCode = 403;
-                res.end(`Path is not writable: ${file.path}`);
-                return;
-              }
-              // Resolve and re-check: a path that passes the string guard but
-              // escapes the root once resolved is rejected here.
-              const target = resolve(root, file.path);
-              if (!target.startsWith(resolve(root) + sep)) {
-                res.statusCode = 403;
-                res.end(`Path escapes the project root: ${file.path}`);
-                return;
-              }
+            const result = resolveWrites(root, files);
+            if ("error" in result) {
+              res.statusCode = 403;
+              res.end(result.error);
+              return;
+            }
+
+            for (const { target, file } of result.targets) {
               mkdirSync(dirname(target), { recursive: true });
               writeFileSync(
                 target,
