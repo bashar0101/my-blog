@@ -17,7 +17,8 @@ describe("allArticles", () => {
     const articles = allArticles();
     const dates = articles.map((a) => a.date);
     expect(dates).toEqual([...dates].sort().reverse());
-    expect(articles[0]!.slug).toBe("2026-01-15-example-article");
+    const maxDate = dates.reduce((max, date) => (date > max ? date : max), dates[0]!);
+    expect(articles[0]!.date).toBe(maxDate);
     for (let i = 1; i < dates.length; i++) {
       expect(dates[i]! < dates[i - 1]!).toBe(true);
     }

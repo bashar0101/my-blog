@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 import App from "../App";
+import { profile } from "../lib/content";
 
 function renderAt(path: string) {
   return render(
@@ -14,7 +15,7 @@ function renderAt(path: string) {
 describe("Home", () => {
   it("renders the profile headline", () => {
     renderAt("/en");
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Your name goes here");
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(profile.headline.en);
   });
 
   it("renders the about text", () => {
