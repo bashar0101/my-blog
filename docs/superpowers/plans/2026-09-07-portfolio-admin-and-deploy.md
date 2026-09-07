@@ -3161,7 +3161,10 @@ Expected: FAIL — cannot resolve `./entry-server`.
 
 ```tsx
 import { renderToString } from "react-dom/server";
-import { StaticRouter } from "react-router-dom/server";
+// React Router 7 has no `react-router-dom/server` subpath — that was v6.
+// v7 re-exports StaticRouter from the package root, so no extra dependency
+// and no subpath import are needed. Verified against the installed 7.18.3.
+import { StaticRouter } from "react-router-dom";
 import App from "./App";
 import { allArticles } from "./lib/articles";
 import { LANGS } from "./lib/localize";
