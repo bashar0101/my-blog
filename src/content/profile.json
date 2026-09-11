@@ -1,27 +1,41 @@
 {
   "name": {
-    "en": "BASHAR KHOUJAH"
+    "en": "BASHAR KHOUJAH",
+    "tr": "Başar Koca",
+    "ar": "بشار خوجة"
   },
   "kicker": {
-    "en": "Java · Full-Stack · ML . AI "
+    "en": "Java · Full-Stack · ML . AI ",
+    "tr": "Java · Full-Stack · ML . AI ",
+    "ar": "Java · Full-Stack · ML . AI "
   },
   "headline": {
-    "en": "BASHAR KHOUJAH"
+    "en": "BASHAR KHOUJAH",
+    "tr": "BASHAR KHOUJAH",
+    "ar": "بشار خوجة"
   },
   "intro": {
-    "en": "Computer Engineering graduate and Full-Stack Developer specializing in Java, Spring Boot, REST APIs, React and scalable web applications."
+    "en": "Computer Engineering graduate and Full-Stack Developer specializing in Java, Spring Boot, REST APIs, React and scalable web applications.",
+    "ar": "خريج هندسة حاسوب ومطور برمجيات متكامل (Full-Stack Developer) متخصص في Java وSpring Boot وREST APIs وReact وتطوير تطبيقات الويب القابلة للتوسع.",
+    "tr": "Bilgisayar Mühendisliği mezunu; Java, Spring Boot, REST API'leri, React ve ölçeklenebilir web uygulamaları konularında uzmanlaşmış Full-Stack Geliştirici."
   },
   "about": {
-    "en": "Hi, I'm Bashar Khouja, a Computer Engineering graduate and Backend Developer with a strong focus on Java and Spring Boot.\n\nI enjoy building scalable web applications and solving real-world problems through software. My experience includes developing REST APIs, implementing authentication and authorization with Spring Security and JWT, working with relational databases such as MySQL and PostgreSQL, and deploying applications using Docker and cloud platforms.\n\nOne of my key projects is a full-stack E-commerce application built with Spring Boot, React, and MySQL, where I implemented secure authentication, order management, inventory validation, automated testing, and containerized deployment. I have also worked on a machine learning–based Nutrition Recommendation System that combines Spring Boot, Flask, React, and data science techniques to provide personalized recommendations.\n\nI am passionate about backend development, software architecture, and continuous learning. Currently, I am looking for opportunities to contribute to professional software projects, expand my technical skills, and grow as a software engineer.\n\nTechnologies: Java, Spring Boot, Spring Security, JPA, MySQL, PostgreSQL, Docker, Redis, React, Git, AWS, REST APIs.\n"
+    "en": "Hi, I'm Bashar Khouja, a Computer Engineering graduate and Full-Stack Developer with a strong focus on Java, Spring Boot and Next.js .\n\nI enjoy building scalable web applications and solving real-world problems through software. My experience includes developing REST APIs, implementing authentication and authorization with Spring Security and JWT, working with relational databases such as MySQL and PostgreSQL, and deploying applications using Docker and cloud platforms.\n\nOne of my key projects is a full-stack E-commerce application built with Spring Boot, React, and MySQL, where I implemented secure authentication, order management, inventory validation, automated testing, and containerized deployment. I have also worked on a machine learning–based Nutrition Recommendation System that combines Spring Boot, Flask, React, and data science techniques to provide personalized recommendations.\n\nI am passionate about backend development, software architecture, and continuous learning. Currently, I am looking for opportunities to contribute to professional software projects, expand my technical skills, and grow as a software engineer.\n\nTechnologies: Java, Spring Boot, Spring Security, JPA, MySQL, PostgreSQL, Docker, Redis, React, Git, AWS, REST APIs.\n",
+    "tr": "Merhaba, ben Bashar Khouja; Java, Spring Boot ve Next.js teknolojilerine odaklanan bir Bilgisayar Mühendisliği mezunu ve Full-Stack Geliştiricisiyim.\n\nÖlçeklenebilir web uygulamaları geliştirmekten ve yazılım yoluyla gerçek dünya sorunlarına çözümler üretmekten keyif alıyorum. Deneyimlerim arasında REST API'leri geliştirme; Spring Security ve JWT kullanarak kimlik doğrulama ve yetkilendirme süreçlerini kurgulama; MySQL ve PostgreSQL gibi ilişkisel veritabanlarıyla çalışma; ayrıca Docker ve bulut platformlarını kullanarak uygulamaları yayına alma (deployment) yer alıyor.\n\nÖne çıkan projelerimden biri, Spring Boot, React ve MySQL kullanılarak geliştirilen ve güvenli kimlik doğrulama, sipariş yönetimi, stok kontrolü, otomatik testler ve konteyner tabanlı dağıtım özelliklerini barındıran kapsamlı bir e-ticaret uygulamasıdır. Ayrıca; kişiselleştirilmiş öneriler sunmak amacıyla Spring Boot, Flask, React ve veri bilimi tekniklerini bir araya getiren, makine öğrenimi tabanlı bir Beslenme Öneri Sistemi üzerinde de çalıştım.\n\nBackend geliştirme, yazılım mimarisi ve sürekli öğrenme konularına büyük bir tutku duyuyorum. Şu anda profesyonel yazılım projelerine katkıda bulunmak, teknik becerilerimi geliştirmek ve bir yazılım mühendisi olarak kendimi ileriye taşımak için fırsatlar arıyorum.\n\nTeknolojiler: Java, Spring Boot, Spring Security, JPA, MySQL, PostgreSQL, Docker, Redis, React, Git, AWS, REST API'leri.",
+    "ar": "مرحباً، أنا بشار خوجة، خريج هندسة حاسوب ومطور برمجيات شامل (Full-Stack Developer) أركز بشكل أساسي على تقنيات Java وSpring Boot وNext.js.\n\nأستمتع ببناء تطبيقات ويب قابلة للتوسع وحل مشكلات واقعية من خلال البرمجيات. تشمل خبرتي تطوير واجهات برمجة التطبيقات (REST APIs)، وتنفيذ آليات المصادقة والترخيص باستخدام Spring Security وJWT، والعمل مع قواعد البيانات العلائقية مثل MySQL وPostgreSQL، ونشر التطبيقات باستخدام Docker والمنصات السحابية.\n\nمن أبرز مشاريعي تطبيق متكامل للتجارة الإلكترونية (E-commerce) تم بناؤه باستخدام Spring Boot وReact وMySQL؛ حيث قمت بتنفيذ ميزات تشمل المصادقة الآمنة، وإدارة الطلبات، والتحقق من المخزون، والاختبارات الآلية، والنشر باستخدام الحاويات (Containerized deployment). كما عملت على تطوير نظام للتوصيات الغذائية يعتمد على تعلم الآلة، ويجمع بين تقنيات Spring Boot وFlask وReact وعلم البيانات لتقديم توصيات مخصصة للمستخدمين.\n\nلدي شغف كبير بتطوير الواجهات الخلفية (Backend)، وهندسة البرمجيات، والتعلم المستمر. أبحث حالياً عن فرص للمساهمة في مشاريع برمجية احترافية، وتوسيع مهاراتي التقنية، وتطوير مساري المهني كمهندس برمجيات.\n\nالتقنيات: Java, Spring Boot, Spring Security, JPA, MySQL, PostgreSQL, Docker, Redis, React, Git, AWS, REST APIs."
   },
   "email": "basharhas1999@gmail.com",
   "cv": {
-    "en": "/cv-en.pdf"
+    "en": "/Bashar_Khoujah_CV.pdf",
+    "tr": "/Bashar_Khoujah_CV.pdf",
+    "ar": "/Bashar_Khoujah_CV.pdf"
   },
   "portrait": {
     "src": "/img/portrait.jpeg",
     "alt": {
-      "en": "Your portrait"
+      "en": "portrait",
+      "tr": "Your portrait",
+      "ar": "Your portrait"
     }
   },
   "socials": [
@@ -39,7 +53,7 @@
     },
     {
       "label": "isnatgram ",
-      "url": "instgram "
+      "url": "https://www.instagram.com/basharkoca"
     }
   ],
   "skills": [
@@ -74,14 +88,26 @@
         {
           "label": "React",
           "tone": "accent"
+        },
+        {
+          "label": "Next.js",
+          "tone": "neutral"
+        },
+        {
+          "label": "CSS",
+          "tone": "neutral"
+        },
+        {
+          "label": "HTML",
+          "tone": "neutral"
         }
       ]
     },
     {
       "group": {
-        "en": "sql",
-        "tr": "Araçlar",
-        "ar": "الأدوات"
+        "en": "SQL",
+        "tr": "SQL",
+        "ar": "SQL"
       },
       "items": [
         {
@@ -89,7 +115,7 @@
           "tone": "neutral"
         },
         {
-          "label": "plsql",
+          "label": "PostgreSQL",
           "tone": "neutral"
         },
         {
@@ -100,7 +126,9 @@
     },
     {
       "group": {
-        "en": "DevOps"
+        "en": "DevOps",
+        "tr": "DevOps",
+        "ar": "DevOps"
       },
       "items": [
         {
