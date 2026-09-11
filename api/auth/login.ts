@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { baseUrl, newState, setState } from "../_auth";
+import { baseUrl, newState, setState } from "../_auth.js";
 
 export default function handler(_request: IncomingMessage, response: ServerResponse) {
   try {
