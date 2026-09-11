@@ -16,10 +16,12 @@ const CASES: { path: string; expected: boolean }[] = [
   { path: "content/articles/a-slug/meta.json", expected: true },
   { path: "content/articles/a-slug/en.md", expected: true },
   { path: "public/img/portrait.jpg", expected: true },
+  { path: "public/cv/cv-en.pdf", expected: true },
   // Outside the writable prefixes entirely.
   { path: "package.json", expected: false },
   { path: "src/App.tsx", expected: false },
   { path: "public/ds/industry.css", expected: false },
+  { path: "public/cv/../../.env", expected: false },
   { path: ".env", expected: false },
   // Traversal starting inside a writable prefix.
   { path: "src/content/../../package.json", expected: false },

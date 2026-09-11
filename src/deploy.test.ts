@@ -17,6 +17,10 @@ describe("vercel.json", () => {
     expect(source.test("/en/projects")).toBe(true);
     expect(source.test("/en/articles/2026-01-15-example-article")).toBe(true);
     expect(source.test("/cv-en.pdf")).toBe(false);
+    // Uploaded CVs live under /cv/. They are real files in public/, so the
+    // rewrite must not swallow them either.
+    expect(source.test("/cv/cv-en.pdf")).toBe(false);
+    expect(source.test("/cv/cv-ar.pdf")).toBe(false);
     expect(source.test("/img/portrait.jpg")).toBe(false);
     expect(source.test("/ds/industry.css")).toBe(false);
     expect(source.test("/assets/index-abc123.js")).toBe(false);

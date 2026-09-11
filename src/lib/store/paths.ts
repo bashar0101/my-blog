@@ -2,6 +2,7 @@ export const WRITABLE_PREFIXES = [
   "src/content/",
   "content/articles/",
   "public/img/",
+  "public/cv/",
 ] as const;
 
 export function isWritablePath(path: string): boolean {

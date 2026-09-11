@@ -43,7 +43,9 @@ function stubFetch(write: Partial<FakeResponse>) {
   return mock;
 }
 
-function writeCall(mock: ReturnType<typeof stubFetch>): { files: { path: string; content: string }[] } {
+function writeCall(mock: ReturnType<typeof stubFetch>): {
+  files: { path: string; content: string; encoding: string }[];
+} {
   const call = mock.mock.calls.find(([url]) => String(url).includes("/__admin/write"));
   if (!call) throw new Error("no write call was made");
   return JSON.parse((call[1]as RequestInit).body as string);
@@ -85,6 +87,32 @@ describe("ProfileEditor", () => {
     // Everything else survives the round trip.
     expect(written.email).toBe(profile.email);
     expect(written.skills).toHaveLength(profile.skills.length);
+  });
+
+  it("commits the uploaded CV as a real PDF alongside the profile", async () => {
+    const fetchMock = stubFetch({ ok: true, text: async () => "" });
+
+    renderAdmin("/admin/profile");
+    await screen.findByLabelText("Headline");
+    await userEvent.upload(
+      screen.getByLabelText("CV file (EN)"),
+      new File([new Uint8Array([37, 80, 68, 70])], "bashar-cv.pdf", { type: "application/pdf" })
+    );
+    await userEvent.click(await screen.findByRole("button", { name: "Save" }));
+
+    await waitFor(() => expect(writeCall(fetchMock)).toBeTruthy());
+    const { files } = writeCall(fetchMock);
+
+    // One commit carries both: the PDF itself, and the profile now pointing at
+    // it. Writing only the JSON — which is all the old text field could do —
+    // left the link pointing at a file that was never uploaded.
+    const pdf = files.find((file) => file.path === "public/cv/cv-en.pdf");
+    expect(pdf).toBeDefined();
+    expect(pdf!.encoding).toBe("base64");
+    expect(atob(pdf!.content)).toBe("%PDF");
+
+    const profileFile = files.find((file) => file.path === "src/content/profile.json");
+    expect(JSON.parse(profileFile!.content).cv.en).toBe("/cv/cv-en.pdf");
   });
 
   it("reports a failed save without losing the edit", async () => {

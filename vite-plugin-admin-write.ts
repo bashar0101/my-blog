@@ -10,7 +10,7 @@ type StoredFileLike = {
   delete?: boolean;
 };
 
-export const WRITABLE_PREFIXES = ["src/content/", "content/articles/", "public/img/"];
+export const WRITABLE_PREFIXES = ["src/content/", "content/articles/", "public/img/", "public/cv/"];
 
 export function isWritablePath(path: string): boolean {
   if (!path) return false;

@@ -6,6 +6,7 @@ import SaveBar from "../../components/admin/SaveBar";
 import { useContentDraft } from "../../lib/admin/useContentDraft";
 import CollapsibleSection from "../../components/admin/CollapsibleSection";
 import ImageUpload from "../../components/admin/ImageUpload";
+import CvUpload from "../../components/admin/CvUpload";
 import type { StoredFile } from "../../lib/store";
 import { parseJsonFile } from "../../lib/admin/hydrate";
 
@@ -17,6 +18,9 @@ export default function ProfileEditor() {
     parse: (files) => parseJsonFile(files, PATH, currentProfile),
   });
   const [portraitFile, setPortraitFile] = useState<StoredFile | null>(null);
+  // Keyed by repository path, so re-uploading one language's CV before saving
+  // replaces that entry instead of queueing a second write to the same file.
+  const [cvFiles, setCvFiles] = useState<Record<string, StoredFile>>({});
 
   function field<K extends keyof Profile>(key: K, value: Profile[K]) {
     setDraft({ ...draft, [key]: value });
@@ -32,7 +36,13 @@ export default function ProfileEditor() {
       <LocalizedField label="Headline" value={draft.headline} onChange={(v) => field("headline", v)} />
       <LocalizedField label="Intro" value={draft.intro} onChange={(v) => field("intro", v)} multiline />
       <LocalizedField label="About" value={draft.about} onChange={(v) => field("about", v)} multiline />
-      <LocalizedField label="CV link" value={draft.cv} onChange={(v) => field("cv", v)} />
+      <CvUpload
+        value={draft.cv}
+        onChange={(cv, file) => {
+          field("cv", cv);
+          if (file) setCvFiles((current) => ({ ...current, [file.path]: file }));
+        }}
+      />
 
       <div className="field">
         <label htmlFor="profile-email">Email</label>
@@ -112,6 +122,7 @@ export default function ProfileEditor() {
           save(
             [
               ...(portraitFile ? [portraitFile] : []),
+              ...Object.values(cvFiles),
               {
                 path: PATH,
                 content: JSON.stringify(draft, null, 2) + "\n",

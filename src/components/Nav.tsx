@@ -48,14 +48,18 @@ export default function Nav() {
         <NavLink to={`${base}/videos`}>{t("nav.videos")}</NavLink>
       </div>
       <LangSwitcher />
-      <a
-        className="btn btn-secondary"
-        href={l(profile.cv)}
-        download
-        style={{ whiteSpace: "nowrap" }}
-      >
-        {t("nav.downloadCV")}
-      </a>
+      {/* No CV uploaded yet: an empty href would re-request the current page
+          under a Download button, which is worse than no button at all. */}
+      {l(profile.cv) !== "" && (
+        <a
+          className="btn btn-secondary"
+          href={l(profile.cv)}
+          download
+          style={{ whiteSpace: "nowrap" }}
+        >
+          {t("nav.downloadCV")}
+        </a>
+      )}
     </nav>
   );
 }

@@ -186,14 +186,16 @@ export default function Home() {
               </a>
             ))}
           </div>
-          <a
-            className="btn btn-secondary"
-            href={l(profile.cv)}
-            download
-            style={{ alignSelf: "flex-start" }}
-          >
-            {t("nav.downloadCV")}
-          </a>
+          {l(profile.cv) !== "" && (
+            <a
+              className="btn btn-secondary"
+              href={l(profile.cv)}
+              download
+              style={{ alignSelf: "flex-start" }}
+            >
+              {t("nav.downloadCV")}
+            </a>
+          )}
         </div>
         <ContactForm />
       </section>

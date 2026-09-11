@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 const SECTIONS = [
-  { to: "/admin/profile", label: "Profile", blurb: "Your name, bio, skills, socials and CV link." },
+  { to: "/admin/profile", label: "Profile", blurb: "Your name, bio, skills, socials, portrait and CV files." },
   { to: "/admin/projects", label: "Projects", blurb: "The project cards and which are featured." },
   { to: "/admin/videos", label: "Videos", blurb: "YouTube embeds and their captions." },
   { to: "/admin/articles", label: "Articles", blurb: "Write, edit and publish articles." },
