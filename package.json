@@ -7,7 +7,10 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "loadtest:quick": "node loadtest/quick.mjs",
+    "loadtest:static": "k6 run loadtest/k6-static.js",
+    "loadtest:api": "k6 run loadtest/k6-api.js"
   },
   "dependencies": {
     "dompurify": "^3.4.14",
