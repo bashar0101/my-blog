@@ -29,49 +29,5 @@
     "url": "https://github.com/bashar0101/ecommerce-api",
     "featured": true,
     "order": 1
-  },
-  {
-    "id": "project-dad5f21c-f3ae-467b-96da-1cbec1c0dd38",
-    "title": {
-      "en": "New project"
-    },
-    "kicker": {
-      "en": ""
-    },
-    "summary": {
-      "en": ""
-    },
-    "tags": [],
-    "image": {
-      "src": "/img/placeholder.jpg",
-      "alt": {
-        "en": ""
-      }
-    },
-    "url": null,
-    "featured": false,
-    "order": 2
-  },
-  {
-    "id": "project-06b5edae-56f8-4ab8-9ad5-8faba4909ae1",
-    "title": {
-      "en": "New project"
-    },
-    "kicker": {
-      "en": ""
-    },
-    "summary": {
-      "en": ""
-    },
-    "tags": [],
-    "image": {
-      "src": "/img/placeholder.jpg",
-      "alt": {
-        "en": ""
-      }
-    },
-    "url": null,
-    "featured": false,
-    "order": 3
   }
 ]
