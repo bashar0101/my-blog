@@ -1,77 +1,49 @@
 [
   {
-    "id": "project-one",
+    "id": "project-eda988af-4ae4-409c-95de-64a2feed6a0c",
     "title": {
-      "en": "Senyora Resturant "
+      "en": "Prosana Clinc ",
+      "tr": "Prosana Kliniği",
+      "ar": "عيادة بروسانا"
     },
     "kicker": {
-      "en": "Backend · API"
+      "en": "Prosana Clinc",
+      "ar": "موقع تسويقي متعدد اللغات (الإنجليزية / العربية / التركية) لعيادة \"PROSANA\" للسياحة العلاجية في إسطنبول.",
+      "tr": "Prosana Kliniği"
     },
     "summary": {
-      "en": "This is a resturant for senyroa in istanbul"
+      "en": "Multilingual (EN / AR / TR) marketing site for PROSANA, a medical tourism clinic in Istanbul. Built with Next.js 15 App Router, TypeScript and Tailwind CSS v4.",
+      "ar": "موقع تسويقي متعدد اللغات (الإنجليزية / العربية / التركية) لعيادة \"PROSANA\" للسياحة العلاجية في إسطنبول. تم تطوير الموقع باستخدام Next.js 15 (App Router) وTypeScript وTailwind CSS v4.",
+      "tr": "İstanbul'da bir sağlık turizmi kliniği olan PROSANA için çok dilli (EN / AR / TR) pazarlama sitesi. Next.js 15 App Router, TypeScript ve Tailwind CSS v4 ile geliştirilmiştir."
     },
     "tags": [
       {
-        "label": "Spring Boot",
-        "tone": "accent"
+        "label": "Typescript ",
+        "tone": "neutral"
       },
       {
-        "label": "PostgreSQL",
+        "label": "Next.js 15 App Router",
+        "tone": "neutral"
+      },
+      {
+        "label": "Tailwind CSS v4",
+        "tone": "neutral"
+      },
+      {
+        "label": "Vercel",
         "tone": "neutral"
       }
     ],
     "image": {
-      "src": "/img/senyora.jpg",
+      "src": "/img/96747ebe-bf2b-44a7-8ca3-b6691523e831.png",
       "alt": {
-        "en": "project 1 image"
+        "en": "prosana",
+        "tr": "prosana",
+        "ar": "prosana"
       }
     },
-    "url": "https://github.com/bashar0101/ecommerce-api",
+    "url": "https://prosana-sepia.vercel.app/",
     "featured": true,
     "order": 1
-  },
-  {
-    "id": "project-dad5f21c-f3ae-467b-96da-1cbec1c0dd38",
-    "title": {
-      "en": "New project"
-    },
-    "kicker": {
-      "en": ""
-    },
-    "summary": {
-      "en": ""
-    },
-    "tags": [],
-    "image": {
-      "src": "/img/placeholder.jpg",
-      "alt": {
-        "en": ""
-      }
-    },
-    "url": null,
-    "featured": false,
-    "order": 2
-  },
-  {
-    "id": "project-06b5edae-56f8-4ab8-9ad5-8faba4909ae1",
-    "title": {
-      "en": "New project"
-    },
-    "kicker": {
-      "en": ""
-    },
-    "summary": {
-      "en": ""
-    },
-    "tags": [],
-    "image": {
-      "src": "/img/placeholder.jpg",
-      "alt": {
-        "en": ""
-      }
-    },
-    "url": null,
-    "featured": false,
-    "order": 3
   }
 ]
