@@ -24,6 +24,12 @@ export interface Social {
   url: string;
 }
 
+/** A company or client shown in the "trusted by" strip. */
+export interface TrustedCompany {
+  label: string;
+  url?: string | null;
+}
+
 export interface Profile {
   name: LocalizedString;
   kicker: LocalizedString;
@@ -35,6 +41,12 @@ export interface Profile {
   portrait: ImageRef;
   socials: Social[];
   skills: SkillGroup[];
+  /**
+   * Optional rather than required so a profile.json written before this field
+   * existed stays valid content. Empty means the strip is not rendered at all
+   * — an empty "trusted by" says less than nothing.
+   */
+  trustedBy?: TrustedCompany[];
 }
 
 export interface Project {

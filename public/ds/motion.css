@@ -1,0 +1,224 @@
+/* Motion.
+ *
+ * Two animated pieces: the skills sphere and the "trusted by" marquee. Both
+ * are pure CSS — no WebGL, no animation library, no per-frame JavaScript — and
+ * both are built so that switching the animation off leaves ordinary, readable
+ * content behind rather than a broken layout.
+ *
+ * Everything here is inside a prefers-reduced-motion guard at the bottom of the
+ * file. Vestibular disorders are not a niche, and a continuously moving strip
+ * is exactly the kind of thing the setting exists for.
+ */
+
+:root {
+  --sphere-radius: clamp(96px, 26vw, 148px);
+  --sphere-duration: 28s;
+  --marquee-duration: 32s;
+}
+
+/* --- skills sphere ------------------------------------------------------
+ * Three nested transforms per label:
+ *
+ *   .sphere-node   rotateY(ry) rotateX(rx) translateZ(r)  — put it on the surface
+ *   .sphere-face   rotateX(-rx) rotateY(-ry)              — undo the tilt
+ *   .sphere-label  rotateY(-angle), in sync with the stage — undo the spin
+ *
+ * node ∘ face works out to a pure translation to the surface point, and the
+ * label's counter-spin cancels the stage's, so every label stays upright and
+ * facing the reader while its position orbits. Without the counter-spin the
+ * labels on the far side are seen from behind and read mirrored.
+ */
+
+.sphere {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: calc(var(--sphere-radius) * 2.4);
+  /* Deliberately short. A distant camera flattens the cloud into scattered
+     text; bringing it close makes near labels visibly larger than far ones,
+     which is the only depth cue CSS gives for free. */
+  perspective: clamp(420px, 58vw, 620px);
+}
+
+/* A guide circle, in the same blueprint idiom as the corner marks on the
+   cards. It does not rotate — it is the outline the labels orbit inside, and
+   without it the cloud reads as scattered text rather than a ball. */
+.sphere::before {
+  content: "";
+  position: absolute;
+  width: calc(var(--sphere-radius) * 2);
+  height: calc(var(--sphere-radius) * 2);
+  border: 1px dashed var(--color-divider);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.sphere-stage {
+  position: relative;
+  width: calc(var(--sphere-radius) * 2);
+  height: calc(var(--sphere-radius) * 2);
+  transform-style: preserve-3d;
+  animation: sphere-spin var(--sphere-duration) linear infinite;
+}
+
+.sphere-node {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform-style: preserve-3d;
+  transform: rotateY(var(--ry)) rotateX(var(--rx)) translateZ(var(--sphere-radius));
+}
+
+.sphere-face {
+  display: block;
+  transform-style: preserve-3d;
+  transform: rotateX(calc(-1 * var(--rx))) rotateY(calc(-1 * var(--ry)));
+}
+
+.sphere-label {
+  /* Same duration and timing function as the stage, opposite direction, so the
+     two stay in lockstep for as long as the page is open. */
+  animation: sphere-counter-spin var(--sphere-duration) linear infinite;
+  white-space: nowrap;
+  /* Pulls each label back by half its own size so it is centred on its point
+     rather than hanging off it. */
+  translate: -50% -50%;
+}
+
+/* Hovering or tabbing into the cloud holds it still, so a label can actually
+   be read or clicked. Both animations pause together or they desynchronise. */
+.sphere:hover .sphere-stage,
+.sphere:hover .sphere-label,
+.sphere:focus-within .sphere-stage,
+.sphere:focus-within .sphere-label {
+  animation-play-state: paused;
+}
+
+@keyframes sphere-spin {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+@keyframes sphere-counter-spin {
+  from { rotate: y 0deg; }
+  to { rotate: y -360deg; }
+}
+
+/* --- trusted by --------------------------------------------------------- */
+
+.trusted {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  border-top: 1px solid var(--color-divider);
+}
+
+.trusted-heading {
+  margin: 0;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 12px;
+  color: var(--color-neutral-600);
+}
+
+.marquee {
+  display: flex;
+  gap: var(--space-6);
+  overflow: hidden;
+  /* Fades the strip out at both edges so names enter and leave instead of
+     being chopped off mid-letter at the container boundary. */
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  flex: none;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  animation: marquee var(--marquee-duration) linear infinite;
+}
+
+.marquee-item {
+  white-space: nowrap;
+  font-family: var(--font-heading);
+  font-size: clamp(16px, 2.4vw, 22px);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-neutral-700);
+}
+
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+/* In Arabic the strip should travel with the reading direction, not against
+   it. Same keyframes, run backwards. */
+:root[dir="rtl"] .marquee-track {
+  animation-direction: reverse;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  /* One full copy's width. The second copy has taken its place by then, so the
+     jump back to 0 is invisible. */
+  to { transform: translateX(calc(-100% - var(--space-6))); }
+}
+
+/* --- reduced motion -----------------------------------------------------
+ * Not just "stop moving": a stopped sphere is a pile of overlapping labels and
+ * a stopped marquee is a row clipped at the edge. Both collapse back into the
+ * plain wrapped lists they are made of.
+ */
+
+@media (prefers-reduced-motion: reduce) {
+  .sphere {
+    display: block;
+    min-height: 0;
+    perspective: none;
+  }
+  .sphere::before {
+    display: none;
+  }
+  .sphere-stage {
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    transform-style: flat;
+    animation: none;
+  }
+  .sphere-node {
+    position: static;
+    transform: none;
+  }
+  .sphere-face {
+    transform: none;
+  }
+  .sphere-label {
+    animation: none;
+    translate: none;
+  }
+
+  .marquee {
+    overflow: visible;
+    flex-wrap: wrap;
+    mask-image: none;
+  }
+  .marquee-track {
+    /* `flex: none` keeps the track at its content width, which is what makes
+       the scroll work — and what pushed the page sideways once the track was
+       no longer clipped. Flattened, it has to be allowed to shrink and wrap. */
+    flex: 1 1 auto;
+    min-width: 0;
+    flex-wrap: wrap;
+    animation: none;
+  }
+  /* The duplicate exists only to make the loop seamless. */
+  .marquee-track[aria-hidden="true"] {
+    display: none;
+  }
+}

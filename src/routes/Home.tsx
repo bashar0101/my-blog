@@ -9,7 +9,8 @@ import ArticleRow from "../components/ArticleRow";
 import VideoEmbed from "../components/VideoEmbed";
 import SectionHeading from "../components/SectionHeading";
 import ContactForm from "../components/ContactForm";
-import TagList from "../components/TagList";
+import SkillSphere from "../components/SkillSphere";
+import TrustedBy from "../components/TrustedBy";
 
 export default function Home() {
   const { lang, t, l } = useLang();
@@ -36,6 +37,8 @@ export default function Home() {
           <ImageFrame image={profile.portrait} height={340} />
         </Blueprint>
       </header>
+
+      <TrustedBy heading={t("trusted.heading")} companies={profile.trustedBy} />
 
       <section className="shell section grid-aside">
         <SectionHeading title={t("about.heading")} />
@@ -85,12 +88,12 @@ export default function Home() {
       <section className="shell section grid-aside">
         <SectionHeading title={t("skills.heading")} />
         <div className="skills-list">
-          {profile.skills.map((group) => (
-            <div key={group.group.en} className="skills-row">
-              <span className="skills-label">{l(group.group)}</span>
-              <TagList tags={group.items} />
-            </div>
-          ))}
+          {/* The group names, once, as a line above the cloud. Repeating each
+              group's tags underneath would put every skill on the page twice. */}
+          <p className="skills-groups">
+            {profile.skills.map((group) => l(group.group)).join(" · ")}
+          </p>
+          <SkillSphere skills={profile.skills} />
         </div>
       </section>
 

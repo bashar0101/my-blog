@@ -22,6 +22,10 @@ export default function ProfileEditor() {
   // replaces that entry instead of queueing a second write to the same file.
   const [cvFiles, setCvFiles] = useState<Record<string, StoredFile>>({});
 
+  // trustedBy is optional on Profile, so a profile written before the field
+  // existed reads as undefined rather than an empty list.
+  const trustedBy = draft.trustedBy ?? [];
+
   function field<K extends keyof Profile>(key: K, value: Profile[K]) {
     setDraft({ ...draft, [key]: value });
   }
@@ -95,6 +99,58 @@ export default function ProfileEditor() {
           </div>
         ))}
         <button className="btn btn-secondary" type="button" onClick={() => field("socials", [...draft.socials, { label: "New link", url: "" }])}>Add social link</button>
+      </CollapsibleSection>
+
+      <CollapsibleSection title="Trusted by">
+        <p style={{ margin: 0, fontSize: 13, color: "var(--color-neutral-700)" }}>
+          Companies whose names scroll across the home page. Leave it empty and the strip is not
+          shown at all — only add names you have actually worked with.
+        </p>
+        {trustedBy.map((company, index) => (
+          <div key={index} style={{ display: "flex", gap: "var(--space-3)", marginBottom: "var(--space-2)", flexWrap: "wrap" }}>
+            <div className="field" style={{ flex: 1, minWidth: 160 }}>
+              <label htmlFor={`trusted-label-${index}`}>Company {index + 1}</label>
+              <input
+                id={`trusted-label-${index}`}
+                className="input"
+                value={company.label}
+                onChange={(event) => {
+                  const next = [...trustedBy];
+                  next[index] = { ...company, label: event.target.value };
+                  field("trustedBy", next);
+                }}
+              />
+            </div>
+            <div className="field" style={{ flex: 2, minWidth: 200 }}>
+              <label htmlFor={`trusted-url-${index}`}>Link {index + 1} (optional)</label>
+              <input
+                id={`trusted-url-${index}`}
+                className="input"
+                type="url"
+                value={company.url ?? ""}
+                onChange={(event) => {
+                  const next = [...trustedBy];
+                  next[index] = { ...company, url: event.target.value || null };
+                  field("trustedBy", next);
+                }}
+              />
+            </div>
+            <button
+              className="btn btn-secondary"
+              type="button"
+              onClick={() => field("trustedBy", trustedBy.filter((_, i) => i !== index))}
+            >
+              Remove company {index + 1}
+            </button>
+          </div>
+        ))}
+        <button
+          className="btn btn-secondary"
+          type="button"
+          onClick={() => field("trustedBy", [...trustedBy, { label: "New company", url: null }])}
+        >
+          Add company
+        </button>
       </CollapsibleSection>
 
       <CollapsibleSection title="Skills">

@@ -227,28 +227,13 @@
   gap: var(--space-4);
 }
 
-.skills-row {
-  display: flex;
-  gap: var(--space-2);
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.skills-label {
-  width: 90px;
+/* The group names on one line above the cloud. */
+.skills-groups {
+  margin: 0;
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--color-neutral-600);
-}
-
-@media (max-width: 600px) {
-  /* A 90px label column next to wrapping tags leaves the tags almost no room;
-     the label takes its own line instead. */
-  .skills-label {
-    width: auto;
-    flex: 1 0 100%;
-  }
 }
 
 /* --- contact ----------------------------------------------------------- */

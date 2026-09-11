@@ -60,6 +60,6 @@ describe("Home", () => {
   it("renders the structural class hooks that rtl.css targets", () => {
     const { container } = renderAt("/en");
     expect(container.querySelector(".page-kicker")).not.toBeNull();
-    expect(container.querySelectorAll(".skills-label").length).toBeGreaterThan(0);
+    expect(container.querySelectorAll(".skills-groups").length).toBeGreaterThan(0);
   });
 });

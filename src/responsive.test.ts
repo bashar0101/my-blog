@@ -47,10 +47,10 @@ describe("layout.css", () => {
     expect(html).toContain('href="/ds/layout.css"');
   });
 
-  it("loads after industry.css and before rtl.css", () => {
+  it("loads after industry.css and before motion.css and rtl.css", () => {
     // industry.css holds the base rules layout.css overrides, and rtl.css's
     // Arabic overrides have to keep the last word.
-    const order = ["/ds/industry.css", "/ds/layout.css", "/ds/rtl.css"].map((href) =>
+    const order = ["/ds/industry.css", "/ds/layout.css", "/ds/motion.css", "/ds/rtl.css"].map((href) =>
       html.indexOf(href)
     );
     expect(order.includes(-1)).toBe(false);

@@ -74,6 +74,11 @@
     "tr": "Yetenekler",
     "ar": "المهارات"
   },
+  "trusted.heading": {
+    "en": "Trusted by",
+    "tr": "Bana güvenenler",
+    "ar": "موضع ثقة"
+  },
   "skills.backend": {
     "en": "Backend",
     "tr": "Backend",

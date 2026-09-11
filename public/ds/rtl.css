@@ -95,9 +95,10 @@ a:hover {
    !important; doing so silently makes the rule inert again on every
    heading/label that has an inline style. .page-kicker is reused by
    PageHeader, Home's hero kicker, and Article's detail kicker — same
-   visual role each time. .skills-label is its own class (Home's
-   skills-group field label) rather than reusing .page-kicker, since a
-   future style change to one must not silently alter the other. */
+   visual role each time. .skills-groups is its own class (the line of
+   skill-group names above the skills sphere) rather than reusing
+   .page-kicker, since a future style change to one must not silently alter
+   the other. */
 :root[lang="ar"] h1,
 :root[lang="ar"] h2,
 :root[lang="ar"] h3,
@@ -105,7 +106,7 @@ a:hover {
 :root[lang="ar"] .card-kicker,
 :root[lang="ar"] .page-kicker,
 :root[lang="ar"] .row-meta,
-:root[lang="ar"] .skills-label {
+:root[lang="ar"] .skills-groups {
   letter-spacing: normal !important;
   text-transform: none !important;
 }
