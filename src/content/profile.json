@@ -26,9 +26,9 @@
   },
   "email": "basharhas1999@gmail.com",
   "cv": {
-    "en": "/Bashar_Khoujah_CV.pdf",
-    "tr": "/Bashar_Khoujah_CV.pdf",
-    "ar": "/Bashar_Khoujah_CV.pdf"
+    "en": "/cv/cv-en.pdf",
+    "tr": "/cv/cv-tr.pdf",
+    "ar": "/cv/cv-ar.pdf"
   },
   "portrait": {
     "src": "/img/portrait.jpeg",
