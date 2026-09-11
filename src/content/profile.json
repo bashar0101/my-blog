@@ -145,5 +145,19 @@
         }
       ]
     }
+  ],
+  "trustedBy": [
+    {
+      "label": "Senyora ",
+      "url": null
+    },
+    {
+      "label": "Prosana",
+      "url": null
+    },
+    {
+      "label": "tyba Chiken",
+      "url": null
+    }
   ]
 }
