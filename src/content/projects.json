@@ -69,5 +69,28 @@
     "liveUrl": null,
     "featured": true,
     "order": 2
+  },
+  {
+    "id": "project-58ab110e-059b-41ac-bc5f-d881c3e82084",
+    "title": {
+      "en": "New projectdasd asd sdasd "
+    },
+    "kicker": {
+      "en": ""
+    },
+    "summary": {
+      "en": ""
+    },
+    "tags": [],
+    "image": {
+      "src": "/img/placeholder.jpg",
+      "alt": {
+        "en": ""
+      }
+    },
+    "url": null,
+    "liveUrl": null,
+    "featured": false,
+    "order": 3
   }
 ]
