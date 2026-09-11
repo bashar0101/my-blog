@@ -5,6 +5,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import {
   WRITABLE_PREFIXES as pluginPrefixes,
   isWritablePath as pluginIsWritablePath,
+  resolveReads,
   resolveWrites,
 } from "../../../vite-plugin-admin-write";
 import { WRITABLE_PREFIXES as storePrefixes, isWritablePath as storeIsWritablePath } from "./paths";
@@ -97,5 +98,37 @@ describe("resolveWrites", () => {
       // target in the batch is known to be valid.
       expect(existsSync(target)).toBe(false);
     }
+  });
+});
+
+/**
+ * The read endpoint exists so the admin can seed its forms from what is
+ * actually on disk rather than from the build-time bundle. It runs only under
+ * `vite`, but it still must not become an arbitrary file reader for anything
+ * that reaches localhost, so it is held to the same containment rules as
+ * writing.
+ */
+describe("resolveReads", () => {
+  it("accepts the same paths writing accepts", () => {
+    const result = resolveReads("/project", ["src/content/profile.json"]);
+    if (!("targets" in result)) throw new Error(`expected targets, got: ${result.error}`);
+    expect(result.targets).toHaveLength(1);
+  });
+
+  for (const path of [
+    "package.json",
+    ".env",
+    "src/content/../../.env",
+    "/etc/passwd",
+    "src/content/",
+  ]) {
+    it(`refuses ${path}`, () => {
+      expect("error" in resolveReads("/project", [path])).toBe(true);
+    });
+  }
+
+  it("refuses the whole batch when one path in it is invalid", () => {
+    const result = resolveReads("/project", ["src/content/profile.json", ".env"]);
+    expect("error" in result).toBe(true);
   });
 });

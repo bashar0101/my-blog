@@ -7,6 +7,20 @@ import { isWritablePath } from "./paths";
  * the middleware exists only while `vite` is serving.
  */
 export class LocalFsStore implements ContentStore {
+  /** Reads the files back off disk, so the admin edits what `vite` is serving. */
+  async read(paths: string[]): Promise<Record<string, string | null>> {
+    const response = await fetch("/__admin/read", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ paths }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Read failed (${response.status}): ${await response.text()}`);
+    }
+    return (await response.json()) as Record<string, string | null>;
+  }
+
   async write(files: StoredFile[], message: string): Promise<void> {
     const disallowed = files.filter((file) => !isWritablePath(file.path));
     if (disallowed.length > 0) {

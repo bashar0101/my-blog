@@ -7,6 +7,9 @@ import { useContentDraft } from "../../lib/admin/useContentDraft";
 import CollapsibleSection from "../../components/admin/CollapsibleSection";
 import ImageUpload from "../../components/admin/ImageUpload";
 import type { StoredFile } from "../../lib/store";
+import { parseJsonFile } from "../../lib/admin/hydrate";
+
+const PATH = "src/content/projects.json";
 
 function blankProject(order: number): Project {
   return {
@@ -23,7 +26,10 @@ function blankProject(order: number): Project {
 }
 
 export default function ProjectsEditor() {
-  const { draft, setDraft, status, error, save } = useContentDraft<Project[]>(allProjects());
+  const { draft, setDraft, status, error, save, ready } = useContentDraft<Project[]>(allProjects(), {
+    paths: [PATH],
+    parse: (files) => parseJsonFile<Project[]>(files, PATH, allProjects()).slice().sort((a, b) => a.order - b.order),
+  });
   const [imageFiles, setImageFiles] = useState<Record<string, StoredFile>>({});
   const update = (index: number, next: Project) => setDraft(draft.map((item, i) => (i === index ? next : item)));
 
@@ -44,6 +50,6 @@ export default function ProjectsEditor() {
       <button className="btn btn-secondary" type="button" onClick={() => setDraft(draft.filter((_, i) => i !== index))} style={{ marginTop: "var(--space-3)" }}>Remove project {index + 1}</button>
     </CollapsibleSection>)}
     <button className="btn btn-secondary" type="button" onClick={() => setDraft([...draft, blankProject(draft.length + 1)])} style={{ alignSelf: "flex-start" }}>Add project</button>
-    <SaveBar status={status} error={error} onSave={() => save([...Object.values(imageFiles), { path: "src/content/projects.json", content: JSON.stringify(draft, null, 2) + "\n", encoding: "utf8" }], "content: update projects")} />
+    <SaveBar status={status} error={error} ready={ready} onSave={() => save([...Object.values(imageFiles), { path: PATH, content: JSON.stringify(draft, null, 2) + "\n", encoding: "utf8" }], "content: update projects")} />
   </div>;
 }

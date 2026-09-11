@@ -15,7 +15,9 @@ function renderAt(path: string) {
 describe("Videos", () => {
   it("renders every video", () => {
     renderAt("/en/videos");
-    expect(screen.getAllByTestId("video-embed")).toHaveLength(allVideos().length);
+    // queryAll, not getAll: getAll throws on zero matches, and an empty
+    // videos.json is valid content the owner can produce from the admin.
+    expect(screen.queryAllByTestId("video-embed")).toHaveLength(allVideos().length);
   });
 
   it("embeds each video by its id on the privacy-preserving host", () => {

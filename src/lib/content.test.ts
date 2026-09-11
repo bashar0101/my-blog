@@ -80,7 +80,11 @@ describe("videos", () => {
   });
 
   it("puts the lowest-order video first", () => {
-    expect(allVideos()[0]!.order).toBe(0);
+    // Derived, not hardcoded: the owner edits this corpus from the admin, and
+    // an empty or renumbered videos.json is valid content, not a regression.
+    const orders = allVideos().map((v) => v.order);
+    if (orders.length === 0) return;
+    expect(allVideos()[0]!.order).toBe(Math.min(...orders));
   });
 
   it("carries a bare youtube id, not a URL", () => {
@@ -91,7 +95,9 @@ describe("videos", () => {
   });
 
   it("caps featured videos at two by default", () => {
-    expect(featuredVideos().length).toBe(2);
+    // Correct whether the corpus has more or fewer than two featured videos.
+    const eligible = allVideos().filter((v) => v.featured).length;
+    expect(featuredVideos().length).toBe(Math.min(2, eligible));
     expect(featuredVideos().every((v) => v.featured)).toBe(true);
   });
 });

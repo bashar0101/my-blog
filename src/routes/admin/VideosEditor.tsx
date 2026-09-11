@@ -4,6 +4,9 @@ import LocalizedField from "../../components/admin/LocalizedField";
 import SaveBar from "../../components/admin/SaveBar";
 import { useContentDraft } from "../../lib/admin/useContentDraft";
 import CollapsibleSection from "../../components/admin/CollapsibleSection";
+import { parseJsonFile } from "../../lib/admin/hydrate";
+
+const PATH = "src/content/videos.json";
 
 export function normalizeYouTubeId(input: string): string {
   const value = input.trim();
@@ -16,7 +19,12 @@ function blankVideo(order: number): Video {
 }
 
 export default function VideosEditor() {
-  const { draft, setDraft, status, error, save } = useContentDraft<Video[]>(allVideos());
+  const { draft, setDraft, status, error, save, ready } = useContentDraft<Video[]>(allVideos(), {
+    paths: [PATH],
+    // Sorted the way lib/content sorts it, so the form lists videos in the
+    // same order the site renders them.
+    parse: (files) => parseJsonFile<Video[]>(files, PATH, allVideos()).slice().sort((a, b) => a.order - b.order),
+  });
   const update = (index: number, next: Video) => setDraft(draft.map((item, i) => (i === index ? next : item)));
   return <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
     <h1 style={{ margin: 0, fontSize: 32 }}>Videos</h1>
@@ -28,6 +36,6 @@ export default function VideosEditor() {
       <button className="btn btn-secondary" type="button" onClick={() => setDraft(draft.filter((_, i) => i !== index))} style={{ marginTop: "var(--space-3)" }}>Remove video {index + 1}</button>
     </CollapsibleSection>)}
     <button className="btn btn-secondary" type="button" onClick={() => setDraft([...draft, blankVideo(draft.length + 1)])} style={{ alignSelf: "flex-start" }}>Add video</button>
-    <SaveBar status={status} error={error} onSave={() => save([{ path: "src/content/videos.json", content: JSON.stringify(draft.map((video) => ({ ...video, youtubeId: normalizeYouTubeId(video.youtubeId) })), null, 2) + "\n", encoding: "utf8" }], "content: update videos")} />
+    <SaveBar status={status} error={error} ready={ready} onSave={() => save([{ path: PATH, content: JSON.stringify(draft.map((video) => ({ ...video, youtubeId: normalizeYouTubeId(video.youtubeId) })), null, 2) + "\n", encoding: "utf8" }], "content: update videos")} />
   </div>;
 }

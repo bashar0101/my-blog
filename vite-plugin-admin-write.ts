@@ -1,4 +1,4 @@
-import { mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, resolve, sep } from "node:path";
 import type { Plugin } from "vite";
 
@@ -51,6 +51,32 @@ export function resolveWrites(
 }
 
 /**
+ * Resolves paths for reading. Same containment rules as writing — the admin
+ * only ever reads back what it is allowed to write, so a traversal cannot turn
+ * this endpoint into an arbitrary file reader for whatever is serving on
+ * localhost.
+ */
+export function resolveReads(
+  root: string,
+  paths: string[]
+): { error: string } | { targets: { target: string; path: string }[] } {
+  const targets: { target: string; path: string }[] = [];
+
+  for (const path of paths) {
+    if (!isWritablePath(path)) {
+      return { error: `Path is not readable: ${path}` };
+    }
+    const target = resolve(root, path);
+    if (!target.startsWith(resolve(root) + sep)) {
+      return { error: `Path escapes the project root: ${path}` };
+    }
+    targets.push({ target, path });
+  }
+
+  return { targets };
+}
+
+/**
  * Serves POST /__admin/write during `vite` only. It is registered with
  * apply: "serve", so it cannot exist in a production build — there is no
  * code path that ships this endpoint.
@@ -60,6 +86,46 @@ export function adminWritePlugin(): Plugin {
     name: "admin-write",
     apply: "serve",
     configureServer(server) {
+      server.middlewares.use("/__admin/read", (req, res) => {
+        if (req.method !== "POST") {
+          res.statusCode = 405;
+          res.end("Method not allowed");
+          return;
+        }
+
+        let raw = "";
+        req.on("data", (chunk) => (raw += chunk));
+        req.on("end", () => {
+          try {
+            const { paths } = JSON.parse(raw) as { paths: string[] };
+
+            const result = resolveReads(server.config.root, paths);
+            if ("error" in result) {
+              res.statusCode = 403;
+              res.end(result.error);
+              return;
+            }
+
+            const files: Record<string, string | null> = {};
+            for (const { target, path } of result.targets) {
+              try {
+                files[path] = readFileSync(target, "utf8");
+              } catch {
+                // Absent is a normal answer, not a failure.
+                files[path] = null;
+              }
+            }
+
+            res.statusCode = 200;
+            res.setHeader("Content-Type", "application/json");
+            res.end(JSON.stringify(files));
+          } catch (cause) {
+            res.statusCode = 500;
+            res.end(cause instanceof Error ? cause.message : "Read failed");
+          }
+        });
+      });
+
       server.middlewares.use("/__admin/write", (req, res) => {
         if (req.method !== "POST") {
           res.statusCode = 405;

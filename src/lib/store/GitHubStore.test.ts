@@ -149,6 +149,72 @@ describe("GitHubStore.write", () => {
   });
 });
 
+describe("GitHubStore caching", () => {
+  it("reads the branch ref with cache disabled", async () => {
+    // GitHub answers this GET with `Cache-Control: public, max-age=60`. Served
+    // from the browser cache, it hands back a head that has since been
+    // superseded, the next commit is parented on it, and the fast-forward-only
+    // ref PATCH fails with "Update is not a fast forward". Two saves inside a
+    // minute were enough.
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse({ object: { sha: "abc123" } }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    await new GitHubStore(config).loadBaseSha();
+
+    expect((fetchMock.mock.calls[0]![1] as RequestInit).cache).toBe("no-store");
+  });
+});
+
+describe("GitHubStore.read", () => {
+  it("decodes the file, multi-byte characters included", async () => {
+    const text = '[{"title":"مشاريع","city":"İstanbul"}]';
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(
+        // Wrapped the way the contents API returns it; atob rejects newlines.
+        jsonResponse({
+          encoding: "base64",
+          content: Buffer.from(text, "utf8").toString("base64").replace(/(.{60})/g, "$1\n"),
+        })
+      )
+    );
+
+    const files = await new GitHubStore(config).read(["src/content/projects.json"]);
+
+    expect(files["src/content/projects.json"]).toBe(text);
+  });
+
+  it("returns null for a path the repository does not have", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: false, status: 404, json: async () => ({}) }));
+
+    const files = await new GitHubStore(config).read(["content/articles/new/meta.json"]);
+
+    expect(files["content/articles/new/meta.json"]).toBeNull();
+  });
+
+  it("reads with cache disabled too", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValue(jsonResponse({ encoding: "base64", content: btoa("{}") }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    await new GitHubStore(config).read(["src/content/profile.json"]);
+
+    expect((fetchMock.mock.calls[0]![1] as RequestInit).cache).toBe("no-store");
+  });
+
+  it("reports a failure that is not a 404", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({ ok: false, status: 401, json: async () => ({ message: "Bad credentials" }) })
+    );
+
+    await expect(new GitHubStore(config).read(["src/content/profile.json"])).rejects.toThrow(
+      /Bad credentials/
+    );
+  });
+});
+
 import { createStore } from "./index";
 
 describe("createStore", () => {

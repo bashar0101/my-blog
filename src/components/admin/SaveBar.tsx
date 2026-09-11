@@ -4,10 +4,13 @@ export default function SaveBar({
   status,
   error,
   onSave,
+  /** False while the editor is still reading the current content. */
+  ready = true,
 }: {
   status: SaveStatus;
   error: string;
   onSave: () => void;
+  ready?: boolean;
 }) {
   return (
     <div
@@ -24,10 +27,15 @@ export default function SaveBar({
         className="btn btn-primary"
         type="button"
         onClick={onSave}
-        disabled={status === "saving"}
+        disabled={status === "saving" || !ready}
       >
-        {status === "saving" ? "Saving…" : "Save"}
+        {status === "saving" ? "Saving…" : !ready ? "Loading…" : "Save"}
       </button>
+      {!ready && status !== "error" && (
+        <p role="status" style={{ margin: 0, fontSize: 14 }}>
+          Reading the current content…
+        </p>
+      )}
       {status === "saved" && (
         <p role="status" style={{ margin: 0, fontSize: 14 }}>
           {import.meta.env.DEV ? "Written to your files." : "Committed. Live in about a minute."}

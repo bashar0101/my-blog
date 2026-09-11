@@ -7,9 +7,15 @@ import { useContentDraft } from "../../lib/admin/useContentDraft";
 import CollapsibleSection from "../../components/admin/CollapsibleSection";
 import ImageUpload from "../../components/admin/ImageUpload";
 import type { StoredFile } from "../../lib/store";
+import { parseJsonFile } from "../../lib/admin/hydrate";
+
+const PATH = "src/content/profile.json";
 
 export default function ProfileEditor() {
-  const { draft, setDraft, status, error, save } = useContentDraft<Profile>(currentProfile);
+  const { draft, setDraft, status, error, save, ready } = useContentDraft<Profile>(currentProfile, {
+    paths: [PATH],
+    parse: (files) => parseJsonFile(files, PATH, currentProfile),
+  });
   const [portraitFile, setPortraitFile] = useState<StoredFile | null>(null);
 
   function field<K extends keyof Profile>(key: K, value: Profile[K]) {
@@ -101,12 +107,13 @@ export default function ProfileEditor() {
       <SaveBar
         status={status}
         error={error}
+        ready={ready}
         onSave={() =>
           save(
             [
               ...(portraitFile ? [portraitFile] : []),
               {
-                path: "src/content/profile.json",
+                path: PATH,
                 content: JSON.stringify(draft, null, 2) + "\n",
                 encoding: "utf8",
               },

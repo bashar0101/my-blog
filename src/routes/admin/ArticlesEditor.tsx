@@ -37,8 +37,29 @@ function RemoveArticle({ article, onClose }: { article: Article; onClose: () => 
   return <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}><h1 style={{ margin: 0, fontSize: 32 }}>Remove article</h1><p style={{ margin: 0 }}>Permanently remove “{article.title.en}” and its language files?</p><div style={{ display: "flex", gap: "var(--space-3)" }}><button className="btn btn-secondary" type="button" onClick={onClose}>Cancel</button><SaveBar status={status} error={error} onSave={async () => { if (await save(deletionFiles(article), `content: remove article ${article.slug}`)) onClose(); }} /></div></div>;
 }
 
+/**
+ * Reads the article back out of its own directory. Nothing exists yet for a
+ * brand-new article, so every path reads as null and the blank stands.
+ */
+function articleHydration(article: Article) {
+  const dir = `content/articles/${article.slug}`;
+  return {
+    paths: [`${dir}/meta.json`, ...LANGS.map((lang) => `${dir}/${lang}.md`)],
+    parse: (files: Record<string, string | null>): Article => {
+      const meta = files[`${dir}/meta.json`];
+      if (!meta) return article;
+      const bodies: Article["bodies"] = {};
+      for (const lang of LANGS) {
+        const body = files[`${dir}/${lang}.md`];
+        if (body !== null && body !== undefined) bodies[lang] = body;
+      }
+      return { ...(JSON.parse(meta) as Omit<Article, "bodies">), bodies };
+    },
+  };
+}
+
 function ArticleForm({ article, onClose }: { article: Article; onClose: () => void }) {
-  const { draft, setDraft, status, error, save } = useContentDraft<Article>(article);
+  const { draft, setDraft, status, error, save, ready } = useContentDraft<Article>(article, articleHydration(article));
   const [bodyLang, setBodyLang] = useState<Lang>("en");
   const [coverFile, setCoverFile] = useState<StoredFile | null>(null);
   const body = draft.bodies[bodyLang] ?? "";
@@ -59,6 +80,6 @@ function ArticleForm({ article, onClose }: { article: Article; onClose: () => vo
     <label style={{ display: "flex", gap: "var(--space-2)", alignItems: "center" }}><input type="checkbox" checked={draft.published} onChange={(event) => setDraft({ ...draft, published: event.target.checked })} />Published</label>
     <div role="tablist" aria-label="Body language" style={{ display: "flex", gap: "var(--space-2)" }}>{LANGS.map((lang) => <button key={lang} type="button" role="tab" aria-selected={lang === bodyLang} className="btn btn-secondary" onClick={() => setBodyLang(lang)}>{lang.toUpperCase()}</button>)}</div>
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "var(--space-4)" }}><div className="field"><label htmlFor="article-body">Body (Markdown)</label><textarea id="article-body" className="input" rows={20} value={body} dir={bodyLang === "ar" ? "rtl" : "ltr"} onChange={(event) => setDraft({ ...draft, bodies: { ...draft.bodies, [bodyLang]: event.target.value } })} /></div><div data-testid="markdown-preview" className="article-body" style={{ border: "1px solid var(--color-divider)", padding: "var(--space-4)" }} dangerouslySetInnerHTML={{ __html: renderMarkdown(body) }} /></div>
-    <SaveBar status={status} error={error} onSave={() => save([...articleToFiles(draft), ...(draft.slug !== article.slug ? deletionFiles(article) : []), ...(coverFile ? [coverFile] : [])], `content: update article ${draft.slug}`)} />
+    <SaveBar status={status} error={error} ready={ready} onSave={() => save([...articleToFiles(draft), ...(draft.slug !== article.slug ? deletionFiles(article) : []), ...(coverFile ? [coverFile] : [])], `content: update article ${draft.slug}`)} />
   </div>;
 }

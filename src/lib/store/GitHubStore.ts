@@ -20,6 +20,14 @@ function toBase64(value: string): string {
   return btoa(binary);
 }
 
+function fromBase64(value: string): string {
+  // GitHub wraps the contents API payload at 60 columns; atob rejects newlines.
+  const binary = atob(value.replace(/\s/g, ""));
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
+}
+
 /**
  * Production store. Commits through the Git Data API so a multi-file save
  * is one atomic commit rather than several partial ones.
@@ -32,6 +40,13 @@ export class GitHubStore implements ContentStore {
   private async call(path: string, init?: RequestInit): Promise<any> {
     const response = await fetch(`${API}${path}`, {
       ...init,
+      // GitHub answers GETs with `Cache-Control: public, max-age=60`, and the
+      // browser honours it. Reading the branch ref from that cache hands back
+      // the head as it was up to a minute ago, so the next commit is parented
+      // on a superseded sha and the ref PATCH — which is fast-forward-only —
+      // is rejected with "Update is not a fast forward". Two saves inside a
+      // minute were enough to trigger it.
+      cache: "no-store",
       headers: {
         Accept: "application/vnd.github+json",
         Authorization: `Bearer ${this.config.token}`,
@@ -65,6 +80,43 @@ export class GitHubStore implements ContentStore {
   async loadBaseSha(): Promise<string> {
     this.baseSha = await this.headSha();
     return this.baseSha;
+  }
+
+  /**
+   * Reads each path at the branch head. A path that does not exist comes back
+   * as null rather than throwing, so a caller can tell "no such file" apart
+   * from "the request failed".
+   */
+  async read(paths: string[]): Promise<Record<string, string | null>> {
+    const entries = await Promise.all(
+      paths.map(async (path) => {
+        const url = `${API}${this.repoPath}/contents/${path.split("/").map(encodeURIComponent).join("/")}?ref=${encodeURIComponent(this.config.branch)}`;
+        const response = await fetch(url, {
+          cache: "no-store",
+          headers: {
+            Accept: "application/vnd.github+json",
+            Authorization: `Bearer ${this.config.token}`,
+          },
+        });
+        if (response.status === 404) return [path, null] as const;
+        if (!response.ok) {
+          let detail = `${response.status}`;
+          try {
+            const body = await response.json();
+            if (body?.message) detail = body.message;
+          } catch {
+            // Non-JSON error body; the status alone is the detail.
+          }
+          throw new Error(`GitHub request failed: ${detail}`);
+        }
+        const body = await response.json();
+        if (body?.encoding !== "base64" || typeof body?.content !== "string") {
+          throw new Error(`GitHub returned no readable content for ${path}.`);
+        }
+        return [path, fromBase64(body.content)] as const;
+      })
+    );
+    return Object.fromEntries(entries);
   }
 
   async write(files: StoredFile[], message: string): Promise<void> {
