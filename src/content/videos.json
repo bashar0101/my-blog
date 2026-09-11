@@ -1,26 +1,26 @@
 [
   {
     "id": "video-one",
-    "title": { "en": "Video title goes here" },
+    "title": {
+      "en": "Video title goes here"
+    },
     "youtubeId": "dQw4w9WgXcQ",
-    "description": { "en": "A one-line description of the video. Replace this text." },
+    "description": {
+      "en": "A one-line description of the video. Replace this text."
+    },
     "featured": true,
     "order": 1
   },
   {
     "id": "video-two",
-    "title": { "en": "Second video title" },
+    "title": {
+      "en": "Second video title"
+    },
     "youtubeId": "dQw4w9WgXcQ",
-    "description": { "en": "A one-line description of the video. Replace this text." },
+    "description": {
+      "en": "A one-line description of the video. Replace this text."
+    },
     "featured": true,
     "order": 2
-  },
-  {
-    "id": "video-three",
-    "title": { "en": "Third video title" },
-    "youtubeId": "jNQXAC9IVRw",
-    "description": { "en": "A one-line description of the video. Replace this text." },
-    "featured": true,
-    "order": 0
   }
 ]
