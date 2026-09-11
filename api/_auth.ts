@@ -37,6 +37,19 @@ export function validState(request: IncomingMessage, state: string): boolean {
   const stored = cookieValue(request, STATE_COOKIE);
   return Boolean(stored && sameValue(stored, state));
 }
+/**
+ * Distinguishes "the browser sent no state cookie" from "it sent a different
+ * one". They look identical to validState but have opposite causes: the first
+ * means the cookie never reached us — typically the flow began on a different
+ * host than AUTH_BASE_URL, so it was set on one domain and read on another.
+ * The second means a stale flow: sign-in was started more than once and an
+ * older callback arrived after a newer one overwrote the cookie.
+ */
+export function stateFailure(request: IncomingMessage, state: string): "missing" | "mismatch" | null {
+  const stored = cookieValue(request, STATE_COOKIE);
+  if (!stored) return "missing";
+  return sameValue(stored, state) ? null : "mismatch";
+}
 export function clearState(response: ServerResponse): void { response.setHeader("Set-Cookie", secureCookie(STATE_COOKIE, "", 0)); }
 export function setSession(response: ServerResponse, login: string): void {
   const payload = Buffer.from(JSON.stringify({ login, exp: Math.floor(Date.now() / 1000) + MAX_AGE_SECONDS })).toString("base64url");

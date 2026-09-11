@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { baseUrl, clearState, setSession, validState } from "../_auth.js";
+import { baseUrl, clearState, setSession, stateFailure } from "../_auth.js";
 
 /**
  * Distinguishes the three ways sign-in legitimately fails, so a 403 says which
@@ -10,7 +10,7 @@ import { baseUrl, clearState, setSession, validState } from "../_auth.js";
  * enforce. What must never appear in a response is the client secret or the
  * GitHub access token, and neither is ever put in one.
  */
-type DenialReason = "state" | "token" | "account" | "config";
+type DenialReason = "state-missing" | "state-mismatch" | "token" | "account" | "config";
 
 class Denied extends Error {
   constructor(readonly reason: DenialReason) {
@@ -31,7 +31,9 @@ export default async function handler(request: IncomingMessage, response: Server
     const url = new URL(request.url ?? "", baseUrl());
     const code = url.searchParams.get("code");
     const state = url.searchParams.get("state");
-    if (!code || !state || !validState(request, state)) throw new Denied("state");
+    if (!code || !state) throw new Denied("state-missing");
+    const stateProblem = stateFailure(request, state);
+    if (stateProblem) throw new Denied(stateProblem === "missing" ? "state-missing" : "state-mismatch");
     clearState(response);
 
     const tokenResponse = await fetch("https://github.com/login/oauth/access_token", {
@@ -60,7 +62,8 @@ export default async function handler(request: IncomingMessage, response: Server
     response.end(
       {
         config: "Access denied (config): set GITHUB_OAUTH_CLIENT_ID, GITHUB_OAUTH_CLIENT_SECRET and ADMIN_GITHUB_LOGIN in the deployment environment, then redeploy.",
-        state: "Access denied (state): the sign-in state cookie did not come back. Start again from /admin, and check that AUTH_BASE_URL matches the domain you are browsing.",
+        "state-missing": "Access denied (state-missing): no sign-in state cookie came back. The flow almost certainly started on a different host than AUTH_BASE_URL, so the cookie was set on one domain and read on another. Begin at the exact domain AUTH_BASE_URL names.",
+        "state-mismatch": "Access denied (state-mismatch): the state cookie came back holding a different value, so an older sign-in attempt finished after a newer one replaced it. Close the extra tabs and sign in once from /admin.",
         token: "Access denied (token): GitHub would not exchange the code. The client secret is usually wrong or stale — regenerate it, update the deployment environment, then redeploy.",
         account: "Access denied (account): this GitHub account is not the authorized admin.",
         unexpected: "Access denied.",
