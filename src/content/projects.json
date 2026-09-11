@@ -46,5 +46,28 @@
     "featured": true,
     "order": 1,
     "liveUrl": "https://prosana-sepia.vercel.app/"
+  },
+  {
+    "id": "project-da74086a-172f-4b8e-988a-46951e2d9923",
+    "title": {
+      "en": "New projectdaasd"
+    },
+    "kicker": {
+      "en": ""
+    },
+    "summary": {
+      "en": ""
+    },
+    "tags": [],
+    "image": {
+      "src": "/img/placeholder.jpg",
+      "alt": {
+        "en": ""
+      }
+    },
+    "url": null,
+    "liveUrl": null,
+    "featured": false,
+    "order": 2
   }
 ]
