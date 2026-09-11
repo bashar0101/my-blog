@@ -23,10 +23,15 @@ export default async function handler(request: IncomingMessage, response: Server
     const clientId = process.env.GITHUB_OAUTH_CLIENT_ID;
     const clientSecret = process.env.GITHUB_OAUTH_CLIENT_SECRET;
     const adminLogin = process.env.ADMIN_GITHUB_LOGIN;
+    // AUTH_SESSION_SECRET is only read at the very end, by setSession signing
+    // the cookie. Left unchecked it lets the entire flow succeed — state,
+    // token exchange, account match — and then throws a plain Error that is
+    // not a Denied, surfacing as a bare "Access denied." with no reason.
+    const sessionSecret = process.env.AUTH_SESSION_SECRET;
     // An unset ADMIN_GITHUB_LOGIN would otherwise compare every real login
     // against "" and deny everyone, which reads identically to a genuine
     // account mismatch. Separate it so the operator is told to set it.
-    if (!clientId || !clientSecret || !adminLogin) throw new Denied("config");
+    if (!clientId || !clientSecret || !adminLogin || !sessionSecret) throw new Denied("config");
 
     const url = new URL(request.url ?? "", baseUrl());
     const code = url.searchParams.get("code");
@@ -62,6 +67,18 @@ export default async function handler(request: IncomingMessage, response: Server
     // is enough to separate a domain mismatch from an expired cookie from a
     // browser dropping cookies entirely. Remove once sign-in is working.
     let detail = "";
+    if (reason === "config") {
+      const missing = [
+        ["GITHUB_OAUTH_CLIENT_ID", process.env.GITHUB_OAUTH_CLIENT_ID],
+        ["GITHUB_OAUTH_CLIENT_SECRET", process.env.GITHUB_OAUTH_CLIENT_SECRET],
+        ["ADMIN_GITHUB_LOGIN", process.env.ADMIN_GITHUB_LOGIN],
+        ["AUTH_SESSION_SECRET", process.env.AUTH_SESSION_SECRET],
+        ["AUTH_BASE_URL", process.env.AUTH_BASE_URL],
+      ].filter(([, value]) => !value).map(([name]) => name);
+      detail = `
+
+not set: ${missing.length ? missing.join(", ") : "(all present)"}`;
+    }
     if (reason === "state-missing") {
       const names = cookieNames(request);
       let expected = "(AUTH_BASE_URL unreadable)";
@@ -80,7 +97,7 @@ cookies received: ${names.length ? names.join(", ") : "(none at all)"}`;
     response.writeHead(403);
     response.end(
       {
-        config: "Access denied (config): set GITHUB_OAUTH_CLIENT_ID, GITHUB_OAUTH_CLIENT_SECRET and ADMIN_GITHUB_LOGIN in the deployment environment, then redeploy.",
+        config: "Access denied (config): one of GITHUB_OAUTH_CLIENT_ID, GITHUB_OAUTH_CLIENT_SECRET, ADMIN_GITHUB_LOGIN or AUTH_SESSION_SECRET is not set in the deployment environment. Set all four, then redeploy.",
         "state-missing": "Access denied (state-missing): no sign-in state cookie came back. The flow almost certainly started on a different host than AUTH_BASE_URL, so the cookie was set on one domain and read on another. Begin at the exact domain AUTH_BASE_URL names.",
         "state-mismatch": "Access denied (state-mismatch): the state cookie came back holding a different value, so an older sign-in attempt finished after a newer one replaced it. Close the extra tabs and sign in once from /admin.",
         token: "Access denied (token): GitHub would not exchange the code. The client secret is usually wrong or stale — regenerate it, update the deployment environment, then redeploy.",
