@@ -8,16 +8,7 @@ export default function Nav() {
   const base = `/${lang}`;
 
   return (
-    <nav
-      className="nav"
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "var(--space-6)",
-        padding: "var(--space-4) var(--space-8)",
-        borderBottom: "1px solid var(--color-divider)",
-      }}
-    >
+    <nav className="nav" style={{ borderBottom: "1px solid var(--color-divider)" }}>
       <Link
         to={base}
         className="nav-brand"
@@ -32,14 +23,7 @@ export default function Nav() {
       >
         {l(profile.name)}
       </Link>
-      <div
-        style={{
-          display: "flex",
-          gap: "var(--space-6)",
-          marginInlineStart: "auto",
-          fontSize: 15,
-        }}
-      >
+      <div className="nav-links">
         <NavLink to={base} end>
           {t("nav.home")}
         </NavLink>

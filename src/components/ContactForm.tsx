@@ -94,7 +94,7 @@ export default function ContactForm() {
         tabIndex={-1}
         autoComplete="off"
         aria-hidden="true"
-        style={{ position: "absolute", left: "-9999px", width: 1, height: 1 }}
+        className="visually-hidden"
       />
 
       <Blueprint as="div" style={{ alignSelf: "flex-start" }}>

@@ -17,7 +17,7 @@ export default function Article() {
 
   return (
     <main>
-      <article style={{ maxWidth: 760, margin: "0 auto", padding: "calc(var(--space-8) * 2) var(--space-8)" }}>
+      <article className="shell-reading shell-tall">
         <Link to={`/${lang}/articles`} style={{ fontSize: 14 }}>
           {t("article.back")}
         </Link>
@@ -30,21 +30,10 @@ export default function Article() {
             gap: "var(--space-3)",
           }}
         >
-          <span
-            className="page-kicker"
-            style={{
-              fontFamily: "var(--font-heading)",
-              textTransform: "uppercase",
-              letterSpacing: "0.14em",
-              fontSize: 14,
-              color: "var(--color-accent-700)",
-            }}
-          >
+          <span className="page-kicker">
             {l(article.topic)} · {article.date} · {article.readingMinutes} {t("article.minutesShort")}
           </span>
-          <h1 style={{ margin: 0, fontSize: 44, lineHeight: 1.1, textTransform: "uppercase" }}>
-            {l(article.title)}
-          </h1>
+          <h1 className="page-title">{l(article.title)}</h1>
           <p style={{ margin: 0, fontSize: 18, lineHeight: 1.6, color: "var(--color-neutral-700)" }}>
             {l(article.standfirst)}
           </p>
@@ -85,6 +74,7 @@ export default function Article() {
             display: "flex",
             gap: "var(--space-2)",
             alignItems: "center",
+            flexWrap: "wrap",
           }}
         >
           <TagList tags={article.tags} />

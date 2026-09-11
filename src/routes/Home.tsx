@@ -11,57 +11,17 @@ import SectionHeading from "../components/SectionHeading";
 import ContactForm from "../components/ContactForm";
 import TagList from "../components/TagList";
 
-const section = {
-  maxWidth: 1200,
-  margin: "0 auto",
-  padding: "var(--space-8)",
-  borderTop: "1px solid var(--color-divider)",
-} as const;
-
 export default function Home() {
   const { lang, t, l } = useLang();
 
   return (
     <main>
-      <header
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 380px",
-          gap: "var(--space-8)",
-          alignItems: "center",
-          padding: "calc(var(--space-8) * 2.5) var(--space-8)",
-          maxWidth: 1200,
-          margin: "0 auto",
-        }}
-      >
+      <header className="shell hero grid-hero">
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
-          <span
-            className="page-kicker"
-            style={{
-              fontFamily: "var(--font-heading)",
-              textTransform: "uppercase",
-              letterSpacing: "0.14em",
-              fontSize: 14,
-              color: "var(--color-accent-700)",
-            }}
-          >
-            {l(profile.kicker)}
-          </span>
-          <h1 style={{ margin: 0, fontSize: 64, lineHeight: 1.05, textTransform: "uppercase" }}>
-            {l(profile.headline)}
-          </h1>
-          <p
-            style={{
-              margin: 0,
-              maxWidth: "52ch",
-              fontSize: 17,
-              lineHeight: 1.6,
-              color: "var(--color-neutral-700)",
-            }}
-          >
-            {l(profile.intro)}
-          </p>
-          <div style={{ display: "flex", gap: "var(--space-3)", marginTop: "var(--space-3)" }}>
+          <span className="page-kicker">{l(profile.kicker)}</span>
+          <h1 className="hero-title">{l(profile.headline)}</h1>
+          <p className="hero-lead">{l(profile.intro)}</p>
+          <div className="hero-actions">
             <Blueprint as="div">
               <Link className="btn btn-primary" to={`/${lang}/projects`}>
                 {t("hero.viewProjects")}
@@ -77,42 +37,25 @@ export default function Home() {
         </Blueprint>
       </header>
 
-      <section style={{ ...section, display: "grid", gridTemplateColumns: "220px 1fr", gap: "var(--space-8)" }}>
+      <section className="shell section grid-aside">
         <SectionHeading title={t("about.heading")} />
-        <p
-          style={{
-            margin: 0,
-            fontSize: 16,
-            lineHeight: 1.7,
-            color: "var(--color-neutral-700)",
-            maxWidth: "68ch",
-          }}
-        >
-          {l(profile.about)}
-        </p>
+        <p className="prose-lead">{l(profile.about)}</p>
       </section>
 
-      <section style={section}>
+      <section className="shell section">
         <SectionHeading
           title={t("featured.heading")}
           linkTo={`/${lang}/projects`}
           linkLabel={t("featured.viewAll")}
         />
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--space-6)" }}>
+        <div className="grid-cards">
           {featuredProjects().map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
         </div>
       </section>
 
-      <section
-        style={{
-          ...section,
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "calc(var(--space-8) * 2)",
-        }}
-      >
+      <section className="shell section grid-halves">
         <div>
           <SectionHeading
             title={t("latest.heading")}
@@ -139,47 +82,25 @@ export default function Home() {
         </div>
       </section>
 
-      <section style={{ ...section, display: "grid", gridTemplateColumns: "220px 1fr", gap: "var(--space-8)" }}>
+      <section className="shell section grid-aside">
         <SectionHeading title={t("skills.heading")} />
-        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+        <div className="skills-list">
           {profile.skills.map((group) => (
-            <div
-              key={group.group.en}
-              style={{ display: "flex", gap: "var(--space-2)", flexWrap: "wrap", alignItems: "center" }}
-            >
-              <span
-                className="skills-label"
-                style={{
-                  fontSize: 13,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.08em",
-                  color: "var(--color-neutral-600)",
-                  width: 90,
-                }}
-              >
-                {l(group.group)}
-              </span>
+            <div key={group.group.en} className="skills-row">
+              <span className="skills-label">{l(group.group)}</span>
               <TagList tags={group.items} />
             </div>
           ))}
         </div>
       </section>
 
-      <section
-        id="contact"
-        style={{
-          ...section,
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "calc(var(--space-8) * 2)",
-        }}
-      >
-        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <section id="contact" className="shell section grid-halves">
+        <div className="contact-details">
           <SectionHeading title={t("contact.heading")} />
           <a href={`mailto:${profile.email}`} style={{ fontSize: 17 }}>
             {profile.email}
           </a>
-          <div style={{ display: "flex", gap: "var(--space-4)", fontSize: 15 }}>
+          <div className="contact-socials">
             {profile.socials.map((social) => (
               <a key={social.label} href={social.url}>
                 {social.label}

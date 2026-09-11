@@ -1,0 +1,346 @@
+/* Responsive layout.
+ *
+ * industry.css is frozen and carries no width media queries, and the React
+ * port put every page grid in a style prop — where no stylesheet can reach it,
+ * because an inline style outranks any external rule regardless of specificity.
+ * So the layout declarations live here instead of in the components, and the
+ * components carry class names.
+ *
+ * Rule of thumb for anyone editing: page layout belongs in this file. A grid
+ * or a page width in a style prop cannot respond to the viewport.
+ */
+
+:root {
+  /* Gutters shrink on phones and stop growing at the design's own value. */
+  --page-pad: clamp(16px, 4vw, 27.2px);
+  --page-max: 1200px;
+  --reading-max: 760px;
+}
+
+/* --- page shells ------------------------------------------------------- */
+
+.shell {
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding: var(--page-pad);
+}
+
+.shell-reading {
+  max-width: var(--reading-max);
+  margin-inline: auto;
+  padding: var(--page-pad);
+}
+
+/* Extra breathing room above a page's first heading, proportional to the
+   gutter so it collapses on phones along with everything else. */
+.shell-tall {
+  padding-block: calc(var(--page-pad) * 2);
+}
+
+.section {
+  border-top: 1px solid var(--color-divider);
+}
+
+/* --- grids -------------------------------------------------------------
+ * The card grids use auto-fit, so the track count follows the container and
+ * they need no breakpoint at all. Only the asymmetric layouts — where one
+ * column is a fixed size — have to be told when to stack.
+ */
+
+.grid-hero {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+.grid-aside {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: var(--space-8);
+}
+
+.grid-halves {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--space-8) * 2);
+}
+
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-6);
+}
+
+.grid-media {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-6);
+}
+
+@media (max-width: 900px) {
+  .grid-hero,
+  .grid-halves {
+    grid-template-columns: 1fr;
+  }
+  .grid-halves {
+    gap: var(--space-8);
+  }
+}
+
+@media (max-width: 800px) {
+  .grid-aside {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
+
+/* --- fluid type --------------------------------------------------------
+ * A 64px headline is 18% of a 360px screen per line. These scale with the
+ * viewport and stop at the design's own sizes on desktop.
+ */
+
+.hero-title {
+  margin: 0;
+  font-size: clamp(2rem, 7.5vw, 64px);
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.page-title {
+  margin: 0;
+  font-size: clamp(1.75rem, 6vw, 44px);
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.section-title {
+  margin: 0;
+  font-size: clamp(1.25rem, 3.6vw, 28px);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.hero-lead {
+  margin: 0;
+  max-width: 52ch;
+  font-size: clamp(15px, 1.6vw, 17px);
+  line-height: 1.6;
+  color: var(--color-neutral-700);
+}
+
+.prose-lead {
+  margin: 0;
+  max-width: 68ch;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--color-neutral-700);
+}
+
+.page-kicker {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 14px;
+  color: var(--color-accent-700);
+}
+
+/* --- nav ---------------------------------------------------------------
+ * Brand, four links, the language switcher and the CV button do not fit on a
+ * phone in one row. They wrap instead of overflowing, and below 820px the
+ * links take a row of their own so the brand keeps the first one.
+ */
+
+.nav {
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  row-gap: var(--space-3);
+  padding: var(--space-4) var(--page-pad);
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--space-6);
+  margin-inline-start: auto;
+  font-size: 15px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 820px) {
+  .nav {
+    gap: var(--space-4);
+  }
+  .nav-links {
+    order: 3;
+    flex: 1 0 100%;
+    margin-inline-start: 0;
+    gap: var(--space-4);
+  }
+}
+
+/* --- hero, headers, footer --------------------------------------------- */
+
+.hero {
+  padding-block: calc(var(--page-pad) * 2.5);
+}
+
+.hero-actions {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.page-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-block: calc(var(--page-pad) * 2) var(--page-pad);
+}
+
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding: var(--space-6) var(--page-pad);
+  border-top: 1px solid var(--color-divider);
+  font-size: 13px;
+  color: var(--color-neutral-600);
+}
+
+.section-heading-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+}
+
+/* --- skills ------------------------------------------------------------ */
+
+.skills-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.skills-row {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.skills-label {
+  width: 90px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-neutral-600);
+}
+
+@media (max-width: 600px) {
+  /* A 90px label column next to wrapping tags leaves the tags almost no room;
+     the label takes its own line instead. */
+  .skills-label {
+    width: auto;
+    flex: 1 0 100%;
+  }
+}
+
+/* --- contact ----------------------------------------------------------- */
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.contact-socials {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  font-size: 15px;
+}
+
+/* --- long-form content -------------------------------------------------
+ * An unbroken URL or code token in an article is wider than a phone and would
+ * push the whole page sideways.
+ */
+
+.article-body {
+  overflow-wrap: anywhere;
+}
+
+.article-body pre,
+.article-body table {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* --- touch targets -----------------------------------------------------
+ * Controls sized for a mouse are hard to hit with a thumb. Only applied where
+ * the pointer is actually coarse, so desktop density is untouched.
+ */
+
+@media (pointer: coarse) {
+  .btn,
+  .nav a,
+  .lang-switcher a {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+/* --- visually hidden ----------------------------------------------------
+ * Hiding something by pushing it off the left edge works only in LTR, where
+ * browsers clip leftward overflow. In RTL that is the scrollable direction, so
+ * a `left: -9999px` honeypot gave every Arabic page 9999px of horizontal
+ * scroll. Clipping in place has no direction and no overflow, and — unlike
+ * display:none — keeps the field in the DOM where a spam bot still finds it.
+ */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* --- admin chrome -------------------------------------------------------
+ * The admin is a desktop editing tool, but it is opened from phones too, and
+ * five section links plus the brand do not fit across one. Same treatment as
+ * the site nav: wrap rather than overflow.
+ */
+
+.admin-header {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-6);
+  padding: var(--space-4) var(--page-pad);
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.admin-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-size: 14px;
+}
+
+.admin-main {
+  max-width: 900px;
+  margin-inline: auto;
+  padding: var(--page-pad);
+}

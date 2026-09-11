@@ -41,15 +41,7 @@ export default function AdminLayout() {
         minHeight: "100%",
       }}
     >
-      <header
-        style={{
-          display: "flex",
-          alignItems: "baseline",
-          gap: "var(--space-6)",
-          padding: "var(--space-4) var(--space-8)",
-          borderBottom: "1px solid var(--color-divider)",
-        }}
-      >
+      <header className="admin-header">
         <Link
           to="/admin"
           style={{
@@ -62,7 +54,7 @@ export default function AdminLayout() {
         >
           Content admin
         </Link>
-        <nav style={{ display: "flex", gap: "var(--space-4)", fontSize: 14 }}>
+        <nav className="admin-nav">
           {SECTIONS.map((section) => (
             <Link key={section.to} to={section.to}>
               {section.label}
@@ -73,7 +65,7 @@ export default function AdminLayout() {
           View site →
         </Link>
       </header>
-      <main style={{ maxWidth: 900, margin: "0 auto", padding: "var(--space-8)" }}>
+      <main className="admin-main">
         <TokenGate>
           <Outlet />
         </TokenGate>

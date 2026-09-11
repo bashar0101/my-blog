@@ -9,16 +9,7 @@ export default function Videos() {
   return (
     <main>
       <PageHeader kicker={t("videos.kicker")} title={t("videos.title")} />
-      <section
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "var(--space-8)",
-          display: "grid",
-          gridTemplateColumns: "repeat(2, 1fr)",
-          gap: "var(--space-6)",
-        }}
-      >
+      <section className="shell grid-media">
         {allVideos().map((video) => (
           <VideoEmbed key={video.id} video={video} />
         ))}

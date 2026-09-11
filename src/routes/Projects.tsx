@@ -9,16 +9,7 @@ export default function Projects() {
   return (
     <main>
       <PageHeader kicker={t("projects.kicker")} title={t("projects.title")} />
-      <section
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "var(--space-8)",
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "var(--space-6)",
-        }}
-      >
+      <section className="shell grid-cards">
         {allProjects().map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}

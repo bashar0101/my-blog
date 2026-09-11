@@ -10,14 +10,8 @@ export default function Articles() {
     <main>
       <PageHeader kicker={t("articles.kicker")} title={t("articles.title")} />
       <section
-        style={{
-          maxWidth: 760,
-          margin: "0 auto",
-          padding: "var(--space-8)",
-          display: "flex",
-          flexDirection: "column",
-          gap: "var(--space-8)",
-        }}
+        className="shell-reading"
+        style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}
       >
         {allArticles().map((article) => (
           <ArticleRow key={article.slug} article={article} />
