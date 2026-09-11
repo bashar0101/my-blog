@@ -20,6 +20,7 @@ function blankProject(order: number): Project {
     tags: [],
     image: { src: "/img/placeholder.jpg", alt: { en: "" } },
     url: null,
+    liveUrl: null,
     featured: false,
     order,
   };
@@ -44,7 +45,8 @@ export default function ProjectsEditor() {
         <button className="btn btn-secondary" type="button" onClick={() => update(index, { ...project, tags: [...project.tags, { label: "New technology", tone: "neutral" }] })}>Add technology</button>
       </fieldset>
       <LocalizedField label={`Image description ${index + 1}`} value={project.image.alt} onChange={(alt) => update(index, { ...project, image: { ...project.image, alt } })} />
-      <div className="field"><label htmlFor={`project-url-${index}`}>Case-study URL (optional)</label><input id={`project-url-${index}`} className="input" type="url" value={project.url ?? ""} onChange={(event) => update(index, { ...project, url: event.target.value || null })} /></div>
+      <div className="field"><label htmlFor={`project-url-${index}`}>Case-study URL (optional)</label><input id={`project-url-${index}`} className="input" type="url" placeholder="Write-up or repository" value={project.url ?? ""} onChange={(event) => update(index, { ...project, url: event.target.value || null })} /></div>
+      <div className="field"><label htmlFor={`project-live-${index}`}>Live site URL (optional)</label><input id={`project-live-${index}`} className="input" type="url" placeholder="The deployed project, if it is live" value={project.liveUrl ?? ""} onChange={(event) => update(index, { ...project, liveUrl: event.target.value || null })} /><p style={{ margin: 0, fontSize: 13, color: "var(--color-neutral-700)" }}>Clicking the project image opens this. With no live site it opens the case study instead.</p></div>
       <ImageUpload label={`Project image ${index + 1}`} value={project.image.src} onChange={(src, file) => { update(index, { ...project, image: { ...project.image, src } }); setImageFiles((files) => { const next = { ...files }; if (file) next[project.id] = file; else delete next[project.id]; return next; }); }} />
       <label style={{ display: "flex", gap: "var(--space-2)", alignItems: "center" }}><input type="checkbox" checked={project.featured} onChange={(event) => update(index, { ...project, featured: event.target.checked })} />Featured on the home page</label>
       <button className="btn btn-secondary" type="button" onClick={() => setDraft(draft.filter((_, i) => i !== index))} style={{ marginTop: "var(--space-3)" }}>Remove project {index + 1}</button>

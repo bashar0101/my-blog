@@ -159,6 +159,11 @@
     "tr": "Vaka incelemesi →",
     "ar": "دراسة الحالة ←"
   },
+  "projects.liveSite": {
+    "en": "Visit site →",
+    "tr": "Siteyi ziyaret et →",
+    "ar": "زيارة الموقع ←"
+  },
   "videos.kicker": {
     "en": "Watch",
     "tr": "İzle",

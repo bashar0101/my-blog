@@ -28,9 +28,20 @@ describe("profile", () => {
 describe("ui", () => {
   it("carries every chrome key in all three languages", () => {
     const keys = Object.keys(ui);
-    expect(keys).toContain("nav.home");
-    expect(keys).toContain("contact.send");
-    expect(keys.length).toBe(39);
+    // Named, not counted. The owner adds interface strings from the admin, so
+    // an exact count fails on every legitimate addition; what actually has to
+    // hold is that the keys the components render are present and translated.
+    for (const required of [
+      "nav.home",
+      "nav.downloadCV",
+      "contact.send",
+      "projects.title",
+      "projects.caseStudy",
+      "projects.liveSite",
+    ]) {
+      expect(keys).toContain(required);
+    }
+    expect(keys.length).toBeGreaterThanOrEqual(39);
     for (const key of keys) {
       for (const lang of LANGS) {
         expect(ui[key]?.[lang], `${key}.${lang}`).toBeTruthy();

@@ -44,7 +44,14 @@ export interface Project {
   summary: LocalizedString;
   tags: Tag[];
   image: ImageRef;
+  /** Write-up or repository for the project. */
   url: string | null;
+  /**
+   * The deployed site, when the project is live. Optional rather than
+   * `string | null` so every project committed before this field existed stays
+   * valid content.
+   */
+  liveUrl?: string | null;
   featured: boolean;
   order: number;
 }
