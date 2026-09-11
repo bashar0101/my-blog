@@ -19,9 +19,13 @@ describe("Home", () => {
   });
 
   it("renders the about text", () => {
-    renderAt("/en");
+    const { container } = renderAt("/en");
     expect(screen.getByRole("heading", { name: "About" })).toBeInTheDocument();
-    expect(screen.getByText(/A short paragraph about your background/)).toBeInTheDocument();
+    // A distinctive fragment pulled from the profile's own about text
+    // rather than a literal that happened to match the seed content.
+    const fragment = profile.about.en.slice(0, 40);
+    expect(fragment.length).toBeGreaterThan(0);
+    expect(container.textContent).toContain(fragment);
   });
 
   it("renders at most three featured projects", () => {

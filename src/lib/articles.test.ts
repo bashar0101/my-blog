@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { allArticles, articleBySlug, bodyFor, latestArticles } from "./articles";
+import { allArticles, allArticlesForAdmin, articleBySlug, bodyFor, latestArticles } from "./articles";
 
 describe("allArticles", () => {
   it("finds the seed article", () => {
@@ -10,7 +10,10 @@ describe("allArticles", () => {
     const articles = allArticles();
     expect(articles.every((a) => a.published)).toBe(true);
     expect(articles.some((a) => a.slug === "2025-03-01-unpublished-draft")).toBe(false);
-    expect(articles.length).toBe(4);
+    // Computed from the full corpus (including drafts) rather than a literal
+    // count, so this stays correct as articles are added or removed.
+    const publishedCount = allArticlesForAdmin().filter((a) => a.published).length;
+    expect(articles.length).toBe(publishedCount);
   });
 
   it("sorts newest first", () => {
@@ -65,7 +68,10 @@ describe("bodyFor", () => {
 
 describe("latestArticles", () => {
   it("caps the result at three by default", () => {
-    expect(latestArticles().length).toBe(3);
-    expect(latestArticles(2).length).toBe(2);
+    // Correct whether the corpus has more or fewer than the requested
+    // number of published articles.
+    const total = allArticles().length;
+    expect(latestArticles().length).toBe(Math.min(3, total));
+    expect(latestArticles(2).length).toBe(Math.min(2, total));
   });
 });

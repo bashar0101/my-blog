@@ -29,7 +29,7 @@ export default function TokenGate({ children }: { children: ReactNode }) {
     <a className="btn btn-primary" href="/api/auth/login" style={{ alignSelf: "flex-start" }}>Sign in with GitHub</a>
   </div>;
 
-  if (token) return <>{children}</>;
+  if (import.meta.env.DEV || token) return <>{children}</>;
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

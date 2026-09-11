@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 import App from "../App";
@@ -27,7 +27,13 @@ function plainTextOf(html: string): string {
 describe("Article", () => {
   it("renders the article title and body", () => {
     const { container } = renderAt(`/en/articles/${slug}`);
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(article.title.en);
+    // Scoped to the page's own <header>: real article bodies can contain
+    // their own level-1 heading in the rendered Markdown, so an unscoped
+    // role query is ambiguous once content stops being the seed content.
+    const pageHeading = within(container.querySelector("header")!).getByRole("heading", {
+      level: 1,
+    });
+    expect(pageHeading).toHaveTextContent(article.title.en);
 
     // A distinctive fragment pulled from the article's own English body
     // (via bodyFor, the same helper the route uses) rather than a literal

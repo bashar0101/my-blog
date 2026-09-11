@@ -43,7 +43,7 @@ describe("ProfileEditor", () => {
     expect(written.headline.en).toBe("Bashar Khoujah");
     // Everything else survives the round trip.
     expect(written.email).toBe(profile.email);
-    expect(written.skills).toHaveLength(3);
+    expect(written.skills).toHaveLength(profile.skills.length);
   });
 
   it("reports a failed save without losing the edit", async () => {

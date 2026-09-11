@@ -46,7 +46,8 @@ describe("allProjects", () => {
   });
 
   it("puts the lowest-order project first", () => {
-    expect(allProjects()[0]!.order).toBe(0);
+    const orders = allProjects().map((p) => p.order);
+    expect(allProjects()[0]!.order).toBe(Math.min(...orders));
   });
 
   it("gives every project a unique id", () => {
@@ -61,7 +62,10 @@ describe("featuredProjects", () => {
   });
 
   it("caps the result at three by default", () => {
-    expect(featuredProjects().length).toBe(3);
+    // Correct whether the corpus has more or fewer than three featured
+    // projects.
+    const eligible = allProjects().filter((p) => p.featured).length;
+    expect(featuredProjects().length).toBe(Math.min(3, eligible));
   });
 
   it("respects an explicit limit", () => {
