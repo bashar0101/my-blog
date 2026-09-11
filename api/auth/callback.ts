@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { baseUrl, clearState, setSession, stateFailure } from "../_auth.js";
+import { baseUrl, clearState, cookieNames, setSession, stateFailure } from "../_auth.js";
 
 /**
  * Distinguishes the three ways sign-in legitimately fails, so a 403 says which
@@ -56,6 +56,25 @@ export default async function handler(request: IncomingMessage, response: Server
     response.end();
   } catch (cause) {
     const reason = cause instanceof Denied ? cause.reason : "unexpected";
+
+    // Diagnostic for state-missing only. Cookie NAMES, never values; the host
+    // the request actually arrived on, and the host AUTH_BASE_URL names. That
+    // is enough to separate a domain mismatch from an expired cookie from a
+    // browser dropping cookies entirely. Remove once sign-in is working.
+    let detail = "";
+    if (reason === "state-missing") {
+      const names = cookieNames(request);
+      let expected = "(AUTH_BASE_URL unreadable)";
+      try { expected = new URL(baseUrl()).host; } catch { /* leave as-is */ }
+      detail =
+        `
+
+seen host: ${request.headers.host ?? "(none)"}` +
+        `
+AUTH_BASE_URL host: ${expected}` +
+        `
+cookies received: ${names.length ? names.join(", ") : "(none at all)"}`;
+    }
     // Vercel captures this; the token and secret are never included.
     console.error(`[auth/callback] denied: ${reason}`);
     response.writeHead(403);
@@ -67,7 +86,7 @@ export default async function handler(request: IncomingMessage, response: Server
         token: "Access denied (token): GitHub would not exchange the code. The client secret is usually wrong or stale — regenerate it, update the deployment environment, then redeploy.",
         account: "Access denied (account): this GitHub account is not the authorized admin.",
         unexpected: "Access denied.",
-      }[reason]
+      }[reason] + detail
     );
   }
 }

@@ -11,6 +11,17 @@ function required(name: string): string {
   return value;
 }
 
+/**
+ * Cookie NAMES only — never values. Used to tell "the browser sent us no
+ * cookies at all" apart from "it sent cookies but not the state one", which
+ * have different causes and are indistinguishable from a null lookup.
+ */
+export function cookieNames(request: IncomingMessage): string[] {
+  const header = request.headers.cookie;
+  if (!header) return [];
+  return header.split(";").map((item) => item.trim().split("=")[0] ?? "").filter(Boolean);
+}
+
 function cookieValue(request: IncomingMessage, name: string): string | null {
   const pair = request.headers.cookie?.split(";").map((item) => item.trim()).find((item) => item.startsWith(`${name}=`));
   return pair ? decodeURIComponent(pair.slice(name.length + 1)) : null;
