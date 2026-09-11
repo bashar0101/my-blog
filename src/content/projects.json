@@ -115,5 +115,51 @@
     "liveUrl": null,
     "featured": true,
     "order": 4
+  },
+  {
+    "id": "project-fafbb6ab-1c93-40db-a11b-322a3f3fbda9",
+    "title": {
+      "en": "New projectdsd sd asd"
+    },
+    "kicker": {
+      "en": "dsa"
+    },
+    "summary": {
+      "en": ""
+    },
+    "tags": [],
+    "image": {
+      "src": "/img/placeholder.jpg",
+      "alt": {
+        "en": ""
+      }
+    },
+    "url": null,
+    "liveUrl": null,
+    "featured": true,
+    "order": 5
+  },
+  {
+    "id": "project-d3893ec5-6fa2-4c38-99f7-9ea2cfdf419d",
+    "title": {
+      "en": "New project"
+    },
+    "kicker": {
+      "en": ""
+    },
+    "summary": {
+      "en": ""
+    },
+    "tags": [],
+    "image": {
+      "src": "/img/placeholder.jpg",
+      "alt": {
+        "en": ""
+      }
+    },
+    "url": null,
+    "liveUrl": null,
+    "featured": false,
+    "order": 6
   }
 ]
