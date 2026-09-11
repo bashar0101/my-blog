@@ -1,0 +1,14 @@
+{
+  "//": "Vercel compiles the serverless functions with its own TypeScript and reads the nearest tsconfig. The root config's `types` array pulls in vitest/globals, @testing-library/jest-dom and vite/client — all devDependencies the Vite app needs and these functions do not. Vercel's function build cannot resolve them, so it failed with TS2688 before compiling a line. This config keeps api/ to what it actually uses.",
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "types": ["node"]
+  },
+  "include": ["."]
+}
