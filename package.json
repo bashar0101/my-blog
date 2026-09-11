@@ -10,7 +10,6 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@types/node": "^26.4.1",
     "dompurify": "^3.4.14",
     "marked": "^18.0.11",
     "react": "^19.2.8",
@@ -25,8 +24,9 @@
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
     "jsdom": "^29.1.1",
-    "typescript": "^7.0.2",
     "vite": "^8.2.2",
-    "vitest": "^5.0.0"
+    "vitest": "^5.0.0",
+    "@types/node": "^24.3.0",
+    "typescript": "^5.9.2"
   }
 }
