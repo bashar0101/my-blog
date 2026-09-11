@@ -144,6 +144,39 @@
           "tone": "neutral"
         }
       ]
+    },
+    {
+      "group": {
+        "en": "AI tools "
+      },
+      "items": [
+        {
+          "label": "Claude code ",
+          "tone": "neutral"
+        },
+        {
+          "label": "ChatGPT ",
+          "tone": "neutral"
+        },
+        {
+          "label": "Codex ",
+          "tone": "neutral"
+        }
+      ]
+    }
+  ],
+  "trustedBy": [
+    {
+      "label": "Senyora ",
+      "url": null
+    },
+    {
+      "label": "Prosana",
+      "url": "https://prosana-sepia.vercel.app/"
+    },
+    {
+      "label": "tyba Chiken",
+      "url": null
     }
   ]
 }
